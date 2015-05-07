@@ -1,0 +1,25 @@
+set nu
+set laststatus=2
+set statusline=%<[%n]\ \|\ %f%m%R%h%w\ \|\ %{&ff}\ %{&fenc}\ \|\ %Y\ %=%{strftime(\"%H:%M\")}\ \ \ \ [%l,%c]\ \ %p%%
+set hlsearch
+
+set softtabstop=4
+set tabstop=4
+set expandtab
+set shiftwidth=4
+"set autoindent
+set smartindent
+
+filetype plugin on
+filetype indent on
+
+set fileencodings=utf-8,gbk,default,latin1
+
+"colorscheme molokai
+"colorscheme werks
+colorscheme freya
+set t_Co=256
+
+let NERDSpaceDelims=1
+
+nmap <F2> :NERDTreeToggle<CR>

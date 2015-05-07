@@ -1,0 +1,944 @@
+((("StorageManager" .
+   [0 0 0 0 0 1 0 1 0 0 0 0 0 0])
+  ("l" .
+   [1])
+  ("mPendingScreenOff" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("replaceAll" .
+   [1 0 0 0 0 0 0 0 0 0])
+  ("wc_widget_12_hours_format" .
+   [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("pattern" .
+   [8 0 0 0 0 0 2])
+  ("p" .
+   [3])
+  ("wtf" .
+   [1 0 0])
+  ("sp" .
+   [2 0])
+  ("the_clock" .
+   [0 0 0 0 1 0 0 0 0])
+  ("setTimeFormatAmPm" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("WidgetUtils" .
+   [0 0 0 0 0 0 1 0 0 0 0])
+  ("r" .
+   [2])
+  ("str" .
+   [4 0 0])
+  ("w" .
+   [1])
+  ("skeleton" .
+   [0 0 0 1 0 0 0 0])
+  ("SystemProperties" .
+   [0 0 0 0 0 0 1 0 3 2 0 0 0 0 0 0])
+  ("removePreference" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("Remove" .
+   [0 0 0 0 0 1])
+  ("currentPage" .
+   [0 0 0 0 0 0 0 0 0 1 0])
+  ("trim" .
+   [2 0 0 0])
+  ("numColumns" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("allAppsNumCols" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("re" .
+   [1 0])
+  ("PDebug" .
+   [0 0 0 1 0 0])
+  ("isMenuShow" .
+   [1 0 0 1 3 1 0 0 0 0])
+  ("onOptionsMenuClosed" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("Menu" .
+   [2 0 0 0])
+  ("mOptionsMenu" .
+   [0 0 0 0 0 0 0 0 0 0 0 1])
+  ("synchronized" .
+   [0 0 0 0 0 1 0 0 0 0 0 0])
+  ("before" .
+   [1 0 0 0 0 0])
+  ("check" .
+   [2 0 0 0 0])
+  ("SystemSetting" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("java-mode" .
+   [0 0 0 0 0 0 0 0 1])
+  ("add-hook" .
+   [0 0 0 0 0 0 0 1])
+  ("xcscope" .
+   [0 0 0 1 1 0 0])
+  ("hours" .
+   [0 0 1 0 0])
+  ("Hours" .
+   [0 0 0 1 0])
+  ("mMinStrLen" .
+   [0 0 0 1 0 0 0 0 0 1])
+  ("mHourStrLen" .
+   [3 0 0 0 0 0 0 0 0 0 0])
+  ("haierP" .
+   [0 0 0 0 0 1])
+  ("mSecStrLen" .
+   [0 0 1 2 0 0 0 1 0 0])
+  ("stop" .
+   [1 0 0 0])
+  ("float" .
+   [0 0 0 0 1])
+  ("measureText" .
+   [0 0 0 1 0 0 0 0 0 0 1])
+  ("mPaintMed" .
+   [0 0 0 0 1 0 0 0 0])
+  ("mTotalTextWidth" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("mHundredths" .
+   [0 0 1 0 0 0 0 0 0 0 0])
+  ("mSeconds" .
+   [0 0 0 0 1 0 0 0])
+  ("xTextStart" .
+   [0 0 0 1 1 0 0 0 0 0])
+  ("secStr" .
+   [0 0 1 4 1 3])
+  ("CUSTOM_ZHIHUI_ZX" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1])
+  ("sb" .
+   [2 0])
+  ("MergeCursor" .
+   [0 0 0 0 1 0 0 0 0 0 0])
+  ("database" .
+   [0 0 0 0 0 0 0 1])
+  ("DATA" .
+   [1 0 0 0])
+  ("CUSTOM_FLY" .
+   [0 0 0 3 1 0 0 0 0 0])
+  ("PopupMenu" .
+   [1 0 0 0 0 0 0 0 0])
+  ("break" .
+   [1 0 0 0 0])
+  ("addressesMap" .
+   [0 0 0 0 0 0 0 1 0 0 0 0])
+  ("retVal" .
+   [0 0 0 0 0 2])
+  ("useStrictPhoneNumberComparation" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("compare" .
+   [0 0 0 0 0 1 0])
+  ("PhoneNumberUtils" .
+   [0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0])
+  ("TAG" .
+   [6 0 0])
+  ("MmsLog" .
+   [0 0 0 0 2 2])
+  ("replace" .
+   [1 0 0 0 0 0 0])
+  ("REPLACE" .
+   [1 0 0 0 0 0 0])
+  ("temp_addressValue" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4])
+  ("temp_refinedAddress" .
+   [1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 3])
+  ("addressValue" .
+   [0 0 0 0 0 1 0 0 0 0 0 2])
+  ("ADDRESS" .
+   [1 0 0 0 0 0 0])
+  ("refinedAddress" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 3])
+  ("settingsButton" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("widgetButton" .
+   [0 0 0 0 0 0 0 0 1 0 0 0])
+  ("wallpaperButton" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("yandex" .
+   [1 0 0 0 0 0])
+  ("email" .
+   [1 0 0 0 0])
+  ("----------------" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("fi" .
+   [3 0])
+  ("mpr" .
+   [2 0 0])
+  ("findn" .
+   [1 0 0 0 0])
+  ("findg" .
+   [2 0 0 0 0])
+  ("function" .
+   [0 0 1 0 0 0 0 0])
+  ("/dev/null" .
+   [2 0 0 0 0 0 0 2 0])
+  ("/dev/" .
+   [0 0 0 1 0])
+  ("~/.xmodmaprc" .
+   [0 0 0 0 1 0 0 0 0 0 0 0])
+  ("xmodmap" .
+   [0 0 0 0 1 0 0])
+  ("elif" .
+   [5 0 0 0])
+  ("echo" .
+   [10 0 0 0])
+  ("find" .
+   [0 0 5 0])
+  ("then" .
+   [11 0 0 0])
+  ("-eq" .
+   [2 0 0])
+  ("instance" .
+   [0 0 0 0 0 0 0 1])
+  ("context" .
+   [1 0 0 0 0 1 2])
+  ("setSnoozeState" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("set-default-font" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("timer" .
+   [2 0 0 0 0])
+  ("mPrefs" .
+   [0 0 0 0 0 1])
+  ("writeToSharedPref" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("getCount" .
+   [0 0 0 0 0 0 1 0])
+  ("mAdapter" .
+   [1 0 0 0 0 0 0 0])
+  ("goto-line" .
+   [0 0 0 0 0 0 0 1 0])
+  ("kbd" .
+   [1 0 0])
+  ("global-set-key" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("keymap" .
+   [0 0 0 0 1 0])
+  ("setShowMoreRingtones" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("mRingtone" .
+   [0 0 0 0 0 0 0 0 1])
+  ("Handler" .
+   [1 0 0 0 0 0 0])
+  ("os" .
+   [3 0])
+  ("Uri" .
+   [1 0 0])
+  ("ContentResolver" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 1])
+  ("BreathLamp" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("systemui" .
+   [0 0 0 1 0 0 0 0])
+  ("isHighEndGfx" .
+   [0 0 1 0 0 0 0 0 0 0 0 0])
+  ("ActivityManager" .
+   [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("mSupportsTransitions" .
+   [1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("Button" .
+   [0 0 0 4 0 0])
+  ("mCancelButton" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("BLACK" .
+   [1 0 1 0 0])
+  ("Color" .
+   [4 0 0 0 1])
+  ("setTextColor" .
+   [0 0 0 0 0 1 0 1 0 0 0 0])
+  ("mContinueButton" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("view" .
+   [7 0 0 0])
+  ("nil" .
+   [1 0 0])
+  ("menu-bar-mode" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0])
+  ("CUSTOM_YUSUN_L29" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("setFastScrollEnabled" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("mListView" .
+   [0 0 0 0 0 1 0 0 0])
+  ("EXTRA_RINGTONE_SHOW_MORE_RINGTONES" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("RingtoneManager" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("getBooleanExtra" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("ringtonePickerIntent" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("time" .
+   [2 0 0 1])
+  ("~/.emacs.d/color-theme/molokai-theme.el" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("mSwitch" .
+   [1 0 0 0 0 0 0])
+  ("which" .
+   [1 0 0 0 0])
+  ("dialog" .
+   [0 0 0 0 0 1])
+  ("DialogInterface" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("onClick" .
+   [1 0 0 0 0 0 0])
+  ("OnClickListener" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("n" .
+   [1])
+  ("setFilters" .
+   [1 0 0 0 0 0 0 0 0 0])
+  ("signText" .
+   [0 0 0 0 0 0 0 1])
+  ("toString" .
+   [1 0 0 0 2 1 1 0])
+  ("append" .
+   [1 0 0 0 1 1])
+  ("StringBuilder" .
+   [0 0 0 0 1 1 0 0 1 1 0 0 0])
+  ("msgText" .
+   [0 0 0 0 0 2 0])
+  ("SMS_SIGNATURE_TOGGLE" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 2 0 0 0 0 0])
+  ("SMS_SIGNATURE" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0])
+  ("getBoolean" .
+   [2 0 0 0 0 0 1 0 0 3])
+  ("SMS_SIGNATURE_SETTING" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("SmsPreferenceActivity" .
+   [0 0 0 0 2 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("getString" .
+   [0 0 0 0 0 2 2 0 3])
+  ("prefs" .
+   [4 0 0 0 0])
+  ("mMessageText" .
+   [0 0 0 0 0 1 0 0 0 0 0 0])
+  ("defun" .
+   [0 0 0 1 0])
+  ("hardware" .
+   [1 0 0 0 0 0 0 0])
+  ("setAntiAlias" .
+   [0 0 0 0 1 1 1 0 0 0 0 0])
+  ("Paint" .
+   [1 0 0 0 0])
+  ("setFlags" .
+   [1 0 0 0 0 0 0 0])
+  ("molokai" .
+   [1 0 0 1 2 0 0])
+  ("load-theme" .
+   [1 0 0 0 0 0 0 1 0 0])
+  ("errorAddressNumbers" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("CUSTOM_TCL" .
+   [0 0 0 1 0 0 0 0 0 1])
+  ("FeatureOption" .
+   [3 0 0 11 4 4 0 0 1 1 0 0 5])
+  ("featureoption" .
+   [1 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("common" .
+   [5 0 0 0 0 1])
+  ("mediatek" .
+   [5 0 0 0 0 0 0 1])
+  ("com" .
+   [12 0 4])
+  ("%1$d个无效联系人未被添加" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("/string" .
+   [1 0 0 0 0 0 1])
+  ("molokai-theme" .
+   [1 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("color-theme" .
+   [0 0 0 1 0 0 0 0 0 0 0])
+  ("require" .
+   [2 0 0 0 4 0 0])
+  ("ActivityNotFoundException" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("event" .
+   [1 0 0 0 1])
+  ("MotionEvent" .
+   [0 0 0 0 0 0 1 0 0 0 0])
+  ("View" .
+   [12 0 0 0])
+  ("onTouchEvent" .
+   [0 0 0 0 0 1 0 0 1 0 0 0])
+  ("boolean" .
+   [6 0 0 1 0 0 1])
+  ("Override" .
+   [0 0 0 1 0 0 0 1])
+  ("OnTouchListener" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("setOnTouchListener" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("util" .
+   [6 0 0 0])
+  ("Linkify" .
+   [1 0 0 0 1 0 0])
+  ("t" .
+   [4])
+  ("a" .
+   [6])
+  ("LinkMovementMethod" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("method" .
+   [0 0 0 0 0 2])
+  ("text" .
+   [2 0 0 1])
+  ("ex" .
+   [1 0])
+  ("Exception" .
+   [1 0 0 0 0 0 0 0 0])
+  ("i" .
+   [7])
+  ("getMovementMethod" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("mm" .
+   [2 0])
+  ("MovementMethod" .
+   [1 0 0 2 0 0 0 0 0 0 0 0 0 0])
+  ("15" .
+   [1 0])
+  ("setAutoLinkMask" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("mTv" .
+   [5 0 0])
+  ("NinePatch" .
+   [0 0 1 0 0 0 0 0 0])
+  ("AND" .
+   [1 0 0])
+  ("draw" .
+   [1 0 0 0])
+  ("back" .
+   [2 0 0 0])
+  ("RectF" .
+   [1 0 0 0 2])
+  ("graphics" .
+   [0 0 0 2 1 0 0 3])
+  ("android" .
+   [13 0 0 1 0 0 23])
+  ("import" .
+   [2 0 0 0 0 34])
+  ("R" .
+   [3])
+  ("decodeResource" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("BitmapFactory" .
+   [1 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("unread_event_numberindication" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("drawable" .
+   [1 0 0 0 0 0 0 0])
+  ("getResources" .
+   [0 0 0 0 0 1 0 0 0 0 0 2])
+  ("mContext" .
+   [2 0 0 0 1 0 0 2])
+  ("Bitmap" .
+   [1 0 0 1 0 0])
+  ("TextView" .
+   [3 0 0 1 4 0 0 3])
+  ("new" .
+   [15 0 0])
+  ("this" .
+   [7 0 0 0])
+  ("mIconCache" .
+   [0 0 1 1 1 1 0 0 0 0])
+  ("IconCache" .
+   [1 0 0 0 0 0 0 0 0])
+  ("UnreadEventIcon" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("s" .
+   [5])
+  ("null" .
+   [18 0 0 0])
+  ("mDpi" .
+   [1 0 0 0])
+  ("iconId" .
+   [3 0 1 0 0 0])
+  ("resource" .
+   [0 0 0 2 0 0 0 0])
+  ("Resources" .
+   [1 0 0 1 0 0 0 0 0])
+  ("Drawable" .
+   [3 0 0 0 0 0 0 0])
+  ("equals" .
+   [1 0 0 0 0 0])
+  ("MMS_PACKAGENAME" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("else" .
+   [20 0 0 0])
+  ("content" .
+   [3 0 0 0 0 0 0])
+  ("refreshCallNumber" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("DIALER_PACKAGENAME" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("final" .
+   [5 0 0 0 2])
+  ("info" .
+   [1 0 0 0])
+  ("if" .
+   [54 2])
+  ("Content" .
+   [1 0 0 1 0 0 0])
+  ("stmt" .
+   [1 0 0 0])
+  ("loadIntegerSetting" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("/integer" .
+   [0 0 0 0 1 1 0 0])
+  ("name=" .
+   [2 0 1 0 2])
+  ("integer" .
+   [0 0 0 0 1 0 1])
+  ("value" .
+   [12 0 0 2 3])
+  ("getContentResolver" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 4])
+  ("valuesOf" .
+   [0 0 0 0 0 0 0 1])
+  ("String" .
+   [10 0 1 0 0 5])
+  ("Log" .
+   [31 0 3])
+  ("putInt" .
+   [1 0 0 1 0 2])
+  ("catch" .
+   [3 0 1 0 1])
+  ("false" .
+   [26 0 0 1 1])
+  ("true" .
+   [17 0 0 0])
+  ("setChecked" .
+   [0 0 0 1 1 0 0 0 0 0])
+  ("mCButton" .
+   [0 0 1 0 0 0 0 0])
+  ("isShowCButton" .
+   [0 0 3 1 0 0 0 0 0 0 0 0 0])
+  ("int" .
+   [16 0 0])
+  ("resolver" .
+   [0 0 0 0 1 0 0 2])
+  ("getInt" .
+   [1 0 0 1 1 1])
+  ("System" .
+   [3 0 0 3 0 4])
+  ("Settings" .
+   [2 0 0 2 4 0 0 3])
+  ("try" .
+   [6 0 0])
+  ("CheckBoxPreference" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("android:key=" .
+   [0 0 0 1 0 0 0 0 0 0 0 0])
+  ("android:title=" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("public" .
+   [14 0 0 1 0 0])
+  ("class" .
+   [4 0 0 0 0])
+  ("private" .
+   [13 0 0 0 0 1 0])
+  ("static" .
+   [5 0 0 0 1 0])
+  ("void" .
+   [7 0 0 0])
+  ("return" .
+   [9 0 0 0 0 0])
+  ("NullProperty" .
+   [2 0 0 0 0 0 0 0 0 0 0 0])
+  ("hehe" .
+   [1 0 0 0])
+  ("LinearLayout" .
+   [1 0 0 0 0 0 0 0 0 0 0 0])
+  ("android:orientation=" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("--" .
+   [1 0])
+  ("string" .
+   [7 0 0 1 0 1])
+  ("add-to-list" .
+   [0 0 0 0 0 1 3 0 0 0 0])
+  ("load-path" .
+   [1 0 0 0 1 0 0 2 1])
+  ("~/.emacs.d" .
+   [2 0 0 0 0 0 0 0 0 0])
+  ("~/.emacs.d/color-theme-6.6.0/" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("~/.emacs.d/color-theme-6.6.0/emacs-color-theme-solarized-master/" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("color-theme-solarized-dark" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("color-theme-solarized" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("android:textSize=" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0])
+  ("off." .
+   [1 0 0 0])
+  ("c" .
+   [2])
+  ("Toast" .
+   [6 0 0 0 0])
+  ("makeText" .
+   [0 0 0 0 0 1 2 0])
+  ("LENGTH_SHORT" .
+   [0 0 0 1 0 0 1 0 0 0 0 1])
+  ("show" .
+   [3 0 0 0])
+  ("If" .
+   [1 1])
+  ("mPrevBound" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("mNextBound" .
+   [0 0 0 0 0 0 1 0 0 0])
+  ("widget" .
+   [1 0 0 1 0 2])
+  ("totalX" .
+   [1 0 1 0 0 0])
+  ("totalY" .
+   [0 0 0 1 0 0])
+  ("signCheck" .
+   [0 0 0 0 0 0 1 0 0])
+  ("b" .
+   [1])
+  ("f2" .
+   [1 0])
+  ("InitFinal" .
+   [0 0 2 1 0 0 0 0 0])
+  ("mEndTime" .
+   [0 0 1 0 0 0 0 0])
+  ("setContentView" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("layout" .
+   [0 0 0 0 0 1])
+  ("simplePage" .
+   [0 0 0 1 0 0 0 0 0 0])
+  ("advancedPage" .
+   [0 0 0 1 0 0 0 0 0 0 0 0])
+  ("HY_WHITE_THEME_SETTINGS" .
+   [0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("SystemUI" .
+   [1 0 0 0 0 0 0 0])
+  ("onStart" .
+   [1 0 0 0 0 0 0])
+  ("Cursor" .
+   [1 0 0 2 0 0])
+  ("rawCursor" .
+   [0 0 0 0 0 0 0 0 1])
+  ("filterParam" .
+   [0 0 0 1 0 0 0 0 0 0 2])
+  ("startsWith" .
+   [0 0 0 0 0 0 1 0 0 0])
+  ("filterParam2" .
+   [0 0 0 3 0 0 0 0 0 0 0 2])
+  ("getDialerSearchNameTableColumns" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("mDisplayOrder" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0])
+  ("rawCursor8" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("rawQuery" .
+   [0 0 0 0 1 0 0 0])
+  ("TEMP_DIALER_SEARCH_TABLE" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("TextUtils" .
+   [0 0 0 0 1 1 0 0 1])
+  ("isEmpty" .
+   [0 0 0 2 0 0 0])
+  ("selection" .
+   [0 0 0 0 0 1 0 0 1])
+  ("DialerSearchLookupColumns" .
+   [0 0 0 0 2 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("_ID" .
+   [1 0 0])
+  ("NORMALIZED_NAME" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("SEARCH_DATA_OFFSETS" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("NAME_TYPE" .
+   [0 0 0 0 1 0 0 0 0])
+  ("DialerSearch" .
+   [0 0 0 0 1 0 0 0 0 0 0 0])
+  ("MATCHED_DATA_OFFSETS" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("TIMES_USED" .
+   [0 0 0 0 1 0 0 0 0 0])
+  ("d" .
+   [2])
+  ("o" .
+   [1])
+  ("set-fontset-font" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0])
+  ("et" .
+   [1 0])
+  ("getView" .
+   [2 0 0 0 0 0 0])
+  ("findViewById" .
+   [0 0 0 0 0 0 1 0 1 0 0 0])
+  ("internal" .
+   [1 0 0 0 0 0 0 4])
+  ("id" .
+   [7 0])
+  ("title" .
+   [2 0 0 0 0])
+  ("extends" .
+   [1 0 0 0 0 0 0])
+  ("EditTextPreference" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("Text" .
+   [1 0 0 0])
+  ("@Override" .
+   [1 0 1 2 0 0 0 0 0])
+  ("ViewGroup" .
+   [0 0 0 0 0 0 1 0 0])
+  ("parent" .
+   [1 0 0 0 0 0])
+  ("C" .
+   [3])
+  ("protected" .
+   [0 0 0 0 0 0 0 1 0])
+  ("onBindView" .
+   [1 0 0 0 0 1 0 0 0 0])
+  ("super" .
+   [0 0 0 0 4])
+  ("titleTextView" .
+   [0 0 1 0 0 0 0 1 0 0 0 0 3])
+  ("getTitleText" .
+   [0 0 0 0 0 0 1 0 0 0 0 0])
+  ("getTitleTextView" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("setEllipsize" .
+   [0 0 0 0 1 0 0 0 0 0 0 0])
+  ("MEditTextPreference" .
+   [0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("Context" .
+   [3 0 0 1 0 0 1])
+  ("show_help" .
+   [0 0 3 0 1 0 0 0 2])
+  ("help" .
+   [1 0 0 0])
+  ("use" .
+   [1 0 0])
+  ("fail" .
+   [5 0 0 0])
+  ("notExecuted" .
+   [0 0 1 3 0 0 0 0 0 0 0])
+  ("head" .
+   [1 0 0 0])
+  ("print" .
+   [6 0 0 0 0])
+  ("count" .
+   [3 0 0 0 0])
+  ("getActivity" .
+   [0 0 0 0 0 1 1 0 0 0 4])
+  ("open" .
+   [3 0 0 0])
+  ("my" .
+   [4 0])
+  ("lines" .
+   [0 0 2 0 0])
+  ("OUT" .
+   [3 0 0])
+  ("target_file" .
+   [0 0 0 0 1 0 0 0 0 0 0])
+  ("die" .
+   [1 0 0])
+  ("for" .
+   [1 0 0])
+  ("close" .
+   [1 0 0 0 0])
+  ("usage" .
+   [1 0 0 0 0])
+  ("ENDUSAGE" .
+   [0 0 0 1 0 0 0 0])
+  ("path" .
+   [1 0 0 0])
+  ("origin_strings" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("ARGV" .
+   [1 0 0 0])
+  ("imenu" .
+   [0 0 0 2 0])
+  ("override" .
+   [0 0 0 0 0 0 0 5])
+  ("ime" .
+   [1 0 0])
+  ("void-function" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("overlay" .
+   [0 0 0 0 0 1 0])
+  ("Tags" .
+   [0 0 0 1])
+  ("def" .
+   [2 0 0])
+  ("e" .
+   [3])
+  ("put" .
+   [1 0 0])
+  ("f" .
+   [5])
+  ("default_wallpaper" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("222222222222" .
+   [1 0 0 0 0 0 0 0 0 0 0 0])
+  ("provided" .
+   [0 0 0 0 0 0 0 1])
+  ("provider" .
+   [0 0 0 0 0 1 0 0])
+  ("old_value" .
+   [0 0 0 0 0 0 4 0 0])
+  ("uri" .
+   [1 0 0])
+  ("ringToneUri" .
+   [0 0 0 0 0 2 0 0 0 0 0])
+  ("getTitle" .
+   [1 0 0 0 0 0 0 0])
+  ("editor" .
+   [0 0 0 0 0 1])
+  ("dateString" .
+   [0 0 1 0 0 0 0 0 0 0])
+  ("length" .
+   [2 0 0 0 1 1])
+  ("menuButton" .
+   [0 0 0 0 0 1 1 0 0 0])
+  ("setVisible" .
+   [0 0 0 0 0 0 4 0 0 3])
+  ("setVisibility" .
+   [0 0 0 0 0 1 1 0 0 1 1 0 0])
+  ("GONE" .
+   [3 0 0 0])
+  ("LOG_TAG" .
+   [1 0 1 2 1 0 0])
+  ("onPrepareOptionsMenu" .
+   [0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("getMenu" .
+   [1 0 0 0 0 0 0])
+  ("mMenu" .
+   [0 0 0 1 0])
+  ("MenuItem" .
+   [1 0 0 0 0 1 0 3])
+  ("menu" .
+   [7 0 0 0])
+  ("findItem" .
+   [0 0 0 0 0 1 0 1])
+  ("menu_item_settings" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("nightMode" .
+   [0 0 1 2 0 0 0 0 0])
+  ("settingsMenu" .
+   [1 0 0 0 0 0 1 0 0 1 0 2])
+  ("SHOW_AS_ACTION_ALWAYS" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("SHOW_AS_ACTION_IF_ROOM" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("M" .
+   [1])
+  ("flag" .
+   [6 0 0 0])
+  ("ExpandedMenuView" .
+   [0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("getContext" .
+   [0 0 0 0 0 0 0 1 0 0])
+  ("emv" .
+   [1 0 0])
+  ("menu_items" .
+   [1 0 0 0 0 0 0 0 0 0])
+  ("action_bar" .
+   [1 0 0 0 0 0 0 0 1 2])
+  ("ACTION_UP" .
+   [1 0 0 0 0 0 0 0 0])
+  ("setGroupVisible" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0])
+  ("ListAdapter" .
+   [0 0 0 1 2 0 0 0 0 0 0])
+  ("11" .
+   [1 0])
+  ("mPager" .
+   [0 0 0 1 0 0])
+  ("setSystemUiVisibility" .
+   [0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("SYSTEM_UI_FLAG_LOW_PROFILE" .
+   [0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("mDisplay" .
+   [0 0 0 0 1 0 0 0])
+  ("start" .
+   [2 0 0 0 0])
+  ("errorStartFromNotification" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("dismiss" .
+   [1 0 0 0 0 0 0])
+  ("finish" .
+   [1 0 0 0 0 0])
+  ("StatusBarManager" .
+   [0 0 0 0 0 3 1 1 0 0 0 0 0 0 0 0])
+  ("getSystemService" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("sbm" .
+   [3 0 0])
+  ("disable" .
+   [1 0 0 0 0 0 1])
+  ("STATUS_BAR_SERVICE" .
+   [0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("app" .
+   [1 0 0])
+  ("commitAllowingStateLoss" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("Slog" .
+   [0 0 1 0])
+  ("10" .
+   [1 0])
+  ("minMatch" .
+   [0 0 0 0 2 0 0 0])
+  ("toCallerIDMinMatch" .
+   [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("number" .
+   [1 0 0 0 0 0])
+  ("appendPhoneLookupTables" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("appendPresenceAndStautsTable" .
+   [0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("setTables" .
+   [0 0 0 0 0 0 0 0 1])
+  ("appendPhoneLookupSelection" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("appendWhere" .
+   [0 0 0 0 0 0 0 0 1 0 0])
+  ("file" .
+   [1 0 0 0])
+  ("perl" .
+   [1 0 0 0])
+  ("-e" .
+   [5 0])
+  ("FILE," .
+   [1 0 0 0 0])
+  ("FILE" .
+   [1 0 0 0])
+  ("source" .
+   [0 0 0 0 1 0])
+  ("mbldenv.sh" .
+   [0 0 0 1 0 0 0 0 0 0])
+  ("|percol" .
+   [1 0 0 0 0 0 0])
+  ("&1" .
+   [1 0])
+  ("sed" .
+   [1 0 0])
+  ("name" .
+   [1 0 0 0])
+  ("menu_people" .
+   [0 0 0 0 0 0 0 0 1 0 0])
+  ("ExtractAndCompile" .
+   [0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0])
+  ("data_filename" .
+   [0 0 1 0 0 0 0 0 0 0 0 0 0])
+  ("data_filenam" .
+   [0 0 0 0 0 0 0 0 0 0 0 1])
+  ("signature_filename" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
+  ("LocalUpgrade" .
+   [0 0 0 0 0 0 0 1 0 0 0 0])
+  ("filename" .
+   [0 0 0 0 0 0 0 1])
+  ("current_version" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("cscope" .
+   [0 0 0 0 1 0])
+  ("x" .
+   [1])
+  ("get" .
+   [1 0 0])))

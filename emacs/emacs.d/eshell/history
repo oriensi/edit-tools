@@ -1,0 +1,33 @@
+gis
+git status
+git diff mediatek/config/e02_zhihui_zx/ProjectConfig.mk 
+gis
+git status
+git reset HEAD packages/apps/Calendar/src/com/android/calendar/QuickResponseSettings.java 
+git add mediatek/config/e02_zhihui_zx/ProjectConfig.mk 
+gitk
+gil
+git pull
+gitk
+git add packages/apps/Calendar/src/com/android/calendar/QuickResponseSettings.java 
+git status
+git commit -m '0006545 日历快速回复 不保存多余的空格'
+gitk
+gil
+git pull
+git branch -a
+git push origin HEAD:refs/for/master
+exit
+pwd
+cd zerg/m12/HUIYUE92_WE_KK/
+cp packages/apps/SpareParts/res/values{,_ur}
+exit
+top
+exit
+cd ../../../../..
+cd ../../..
+cd ..
+find packages/apps/Settings/ -name 'Default*'
+grep -rn 'DefaultRingtonePreference' packages/apps/Settings/
+gitk
+exit

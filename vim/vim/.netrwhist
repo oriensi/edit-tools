@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/root/zerg/m12/HUIYUE92_WE_KK/mediatek/custom/m12/resource_overlay/sd_in_ex_otg/packages/apps/Launcher3/res/xml'
+let g:netrw_dirhist_2='/root/zerg/m18c/6735_C2K_20150314/out/target/product/m18c'
+let g:netrw_dirhist_3='/root/zerg/m18c/6735_C2K_20150314/build'
+let g:netrw_dirhist_4='/root/zerg/m18c/6735_C2K_20150321/build'
+let g:netrw_dirhist_5='/root/zerg/m18h/eng/frameworks/base/packages/Keyguard'
+let g:netrw_dirhist_6='/root/zerg/m18h/eng/build'
