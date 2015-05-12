@@ -1,25 +1,121 @@
-set nu
-set laststatus=2
-set statusline=%<[%n]\ \|\ %f%m%R%h%w\ \|\ %{&ff}\ %{&fenc}\ \|\ %Y\ %=%{strftime(\"%H:%M\")}\ \ \ \ [%l,%c]\ \ %p%%
-set hlsearch
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> file
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,cp936,gb18030,big5,default,Latin1
+"Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+
+set go="无工具栏"
+autocmd GUIEnter * simalt ~x
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+behave mswin
+
+set langmenu=zh_CN.utf-8
+language messages zh_CN.utf-8
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:fencview_autodetect=1
+set nocompatible
+set history=50
+set number
+set nobackup
+set nowritebackup
+"call pathogen#infect()
+
+"realtive line numbers
+"let g:NumberToggleTrigger="<F2>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> tab colorscheme and font
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set softtabstop=4
 set tabstop=4
 set expandtab
 set shiftwidth=4
-"set autoindent
+set autoindent
 set smartindent
 
-filetype plugin on
-filetype indent on
-
-set fileencodings=utf-8,gbk,default,latin1
-
+"colorscheme asmanian_blood
 "colorscheme molokai
-"colorscheme werks
+"colorscheme oh-la-la
+"colorscheme coffee
 colorscheme freya
 set t_Co=256
+set hlsearch
 
+"set guifont=monaco:h10
+"set gfw=YouYuan:h11
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> statusline indentline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set statusline=%F%m%r%h%w\ \|\ %{&ff}\ \|\ %Y\ \|\ A=>\%03.3b\ \|\ H=>\%02.2B\ %=[%l,%c%v]\ %p%% 
+"set statusline=%f%m%r%h%w\ \|\ %{&ff}\ \|\ %Y\ \|\ A=>\%03.3b\ \|\ H=>\%02.2B\ %=%{strftime(\"%H:%M\")}\ \|\|\ [%l,%c]\ %p%% 
+set statusline=%<[%n]\ \|\ %f%m%R%h%w\ \|\ %{&ff}\ %{&fenc}\ \|\ %Y\ %=%{strftime(\"%H:%M\")}\ \ \ \ [%l,%c]\ \ %p%%
+"set statusline+=%{strftime(\"\ \|\|%H:%M\ %m-%d\")}
+set laststatus=2
+
+"let g:indentLine_color_gui = '#A4E75E'
+
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+
+"set fdm=marker
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"=> taglist nerdtree and conqueterm
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDSpaceDelims=1
-
 nmap <F2> :NERDTreeToggle<CR>
+"nmap <F3> :TlistToggle<CR>
+"nmap <F4> :call Nerdtree()<CR>
+"let Tlist_Show_One_File = 1
+"let Tlist_Exit_OnlyWindow = 1
+"let Tlist_WinWidth = 25
+"let Tlist_WinHeight = 15
+"let g:count = 0
+"function! Nerdtree()
+    "if g:count == 0
+        "let g:Tlist_Use_Horiz_Window = 1
+        "let g:count = 1
+    "else
+        "let g:Tlist_Use_Horiz_Window = 0
+        "let g:count = 0
+    "endif
+    "exec ":NERDTreeToggle"
+"endfunction
+

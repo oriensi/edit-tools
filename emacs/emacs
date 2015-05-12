@@ -1,9 +1,9 @@
-(custom-set-variables
+﻿(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-;; '(menu-bar-mode nil)
+ ;; '(menu-bar-mode nil)
  '(rainbow-delimiters-highlight-braces-p nil)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -116,7 +116,7 @@
 (setq make-backup-files nil)
 
 ;;不生成临时文件
-                                        ;(setq auto-save-default nil)
+;; (setq auto-save-default nil)
 
 ;;全屏
 (global-set-key [f11] 'my-fullscreen)
@@ -161,8 +161,8 @@
 (global-set-key (kbd "C-c i") 'ibuffer)
 
 ;;shell mode 正常显示颜色
-                                        ;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-                                        ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;; 支持emacs和外部程序的粘贴
 (setq x-select-enable-clipboard t)
@@ -172,11 +172,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "orange red" :foreground "black" :box (:line-width -1 :style released-button)))))
- '(mode-line-inactive ((t (:inherit mode-line :background "#444444" :foreground "white" :box (:line-width -1 :color "grey40") :weight light))))
- '(powerline-active1 ((t (:inherit mode-line :background "yellow"))))
- '(powerline-active2 ((t (:inherit mode-line :background "dodger blue"))))
- '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "cornflower blue"))))
- '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "medium orchid"))))
+
+ ;; '(mode-line ((t (:background "orange red" :foreground "black" :box (:line-width -1 :style released-button)))))
+ ;; '(mode-line-inactive ((t (:inherit mode-line :background "#444444" :foreground "white" :box (:line-width -1 :color "grey40") :weight light))))
+ ;; '(powerline-active1 ((t (:inherit mode-line :background "yellow"))))
+ ;; '(powerline-active2 ((t (:inherit mode-line :background "dodger blue"))))
+ ;; '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "cornflower blue"))))
+ ;; '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "medium orchid"))))
+
+ '(mode-line ((t (:background "forest green" :foreground "black" :box nil))))
+ '(powerline-active1 ((t (:inherit mode-line :background "dark goldenrod"))))
  '(vertical-border ((t (:foreground "green4")))))
 
