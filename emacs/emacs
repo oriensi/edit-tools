@@ -59,7 +59,7 @@
 (setq display-time-24hr-format t)
 (setq display-time-day-and-date t)
 (setq display-time-string-forms
-      '(dayname " " month "/" day 
+      '(dayname " " month "/" day
         "  " 24-hours ":" minutes))
 (display-time)
 
@@ -164,6 +164,14 @@
 ;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;; whitespace
+(require 'whitespace)
+(global-whitespace-mode)
+(setq whitespace-style
+      '(face trailing tabs lines lines-tail empty
+             space-after-tab space-before-tab))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; 支持emacs和外部程序的粘贴
 (setq x-select-enable-clipboard t)
 
@@ -183,4 +191,3 @@
  '(mode-line ((t (:background "forest green" :foreground "black" :box nil))))
  '(powerline-active1 ((t (:inherit mode-line :background "dark goldenrod"))))
  '(vertical-border ((t (:foreground "green4")))))
-
