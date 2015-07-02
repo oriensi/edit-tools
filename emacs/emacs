@@ -1,9 +1,17 @@
-﻿(custom-set-variables
+﻿
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;; '(menu-bar-mode nil)
+ '(package-selected-packages (quote (whitespace dash)))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -137,6 +145,11 @@
 ;; (require 'rainbow-delimiters)
 ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
+(add-to-list 'load-path "~/.emacs.d/android")
+(require 'android-common)
+(require 'android-compile)
+(require 'android-host)
+
 ;;powerline
 (add-to-list 'load-path "~/.emacs.d/powerline")
 (require 'powerline)
@@ -146,6 +159,13 @@
 ;;不使用vc-git
 (delete 'Git vc-handled-backends)
 (remove-hook 'find-file-hook 'vc-find-file-hook)
+
+(add-to-list 'load-path "~/.emacs.d/magit/lisp")
+(eval-after-load 'info
+  '(progn (info-initialize)
+          (add-to-list 'Info-directory-list "~/.emacs.d/magit/lisp/")))
+(defvar magit-emacsclient-executable nil)
+(require 'magit)
 
 ;; org-mode
 (setq org-src-fontify-natively t)
@@ -168,7 +188,8 @@
 (require 'whitespace)
 (global-whitespace-mode)
 (setq whitespace-style
-      '(face trailing tabs lines lines-tail empty
+      ;; '(face trailing tabs lines lines-tail empty
+      '(face tab-mark trailing empty
              space-after-tab space-before-tab))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
