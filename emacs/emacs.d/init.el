@@ -202,6 +202,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 
+
+ ;; othe face
  ;; '(mode-line ((t (:background "orange red" :foreground "black" :box (:line-width -1 :style released-button)))))
  ;; '(mode-line-inactive ((t (:inherit mode-line :background "#444444" :foreground "white" :box (:line-width -1 :color "grey40") :weight light))))
  ;; '(powerline-active1 ((t (:inherit mode-line :background "yellow"))))
