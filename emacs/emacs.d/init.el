@@ -14,7 +14,9 @@
  '(package-selected-packages (quote (whitespace dash)))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(scroll-bar-mode nil)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ ;; '(magit-push-always-verify nil)
+ )
 
 ;;(custom-set-faces
 ;; custom-set-faces was added by Custom.
@@ -79,6 +81,14 @@
 ;;(set-face-foreground 'region "green")
 ;;(set-face-background 'region "blue")
 
+
+(global-set-key (kbd "C-c z") 'shell)
+(global-set-key (kbd "<f10>") 'rename-buffer)
+;; (when (fboundp 'winner-mode)
+;;   (winner-mode)
+;;   (windmove-default-keybindings))
+
+
 (setq default-buffer-file-coding-system 'utf-8)
 (setq current-language-environment "UTF-8")
 
@@ -94,10 +104,10 @@
 ;;以y/n代表yes/no
 (fset 'yes-or-no-p' y-or-n-p)
 ;;配色
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-theme 'granger t)
 ;;(load-theme 'graham t)
-;;(load-theme 'spolsky t)
+(load-theme 'spolsky t)
 ;;(load-theme 'mccarthy t)
 ;;(load-theme 'wilson t)
 ;;(load-theme 'brin t)
@@ -105,10 +115,10 @@
 ;;(load-theme 'junio t)
 ;;(load-theme 'hickey t)
 
-(add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
-;;(load-theme 'zenburn t)
-(load-theme 'molokai t)
-;;(load-theme 'wombat t)
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
+;; (load-theme 'zenburn t)
+;; (load-theme 'molokai t)
+;; (load-theme 'wombat t)
 ;; (add-to-list 'load-path "~/.emacs.d/color-theme/color-theme-6.6.0/")
 ;; (require 'color-theme)
 ;; (color-theme-initialize)
@@ -145,10 +155,10 @@
 ;; (require 'rainbow-delimiters)
 ;; (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(add-to-list 'load-path "~/.emacs.d/android")
-(require 'android-common)
-(require 'android-compile)
-(require 'android-host)
+;; (add-to-list 'load-path "~/.emacs.d/android")
+;; (require 'android-common)
+;; (require 'android-compile)
+;; (require 'android-host)
 
 ;;powerline
 (add-to-list 'load-path "~/.emacs.d/powerline")
@@ -156,7 +166,7 @@
 ;;(powerline-center-theme)
 (powerline-default-theme)
 
-;;不使用vc-git
+;; git设置 不使用vc-git
 (delete 'Git vc-handled-backends)
 (remove-hook 'find-file-hook 'vc-find-file-hook)
 
@@ -191,10 +201,26 @@
       ;; '(face trailing tabs lines lines-tail empty
       '(face tab-mark trailing empty
              space-after-tab space-before-tab))
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; 支持emacs和外部程序的粘贴
 (setq x-select-enable-clipboard t)
+
+;; IME
+(add-to-list 'load-path "~/.emacs.d/ibus-el")
+(require 'ibus)
+(add-hook 'after-init-hook 'ibus-mode-on)
+(global-unset-key (kbd "C-SPC"))
+(global-set-key (kbd "C-SPC") 'ibus-toggle)
+
+;; LaTeX
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nill t t)
+(setq TeX-autosave t)
+(setq Tex-parse-self t)
+(setq-default Tex-master nil)
+(setq TeX-engine 'xetex)
+(setq Tex-PDF-mode t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

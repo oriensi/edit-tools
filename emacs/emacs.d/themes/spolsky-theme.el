@@ -17,8 +17,8 @@
 ;;
 ;; ----------------------------
 
-(unless (>= 24 emacs-major-version)
-  (error "requires Emacs 24 or later."))
+(unless (>= emacs-major-version 24)
+ (error "requires Emacs 24 or later."))
 
 (deftheme spolsky  "A dark color theme for Emacs based on Sublime Text 2")
 
