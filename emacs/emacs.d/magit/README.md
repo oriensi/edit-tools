@@ -29,9 +29,25 @@
 ***
 
 <p align="center">
-  Please consider supporting development by making a
-  <a href="http://magit.vc/donations.html">donation</a>.
+  <b>
+    Please consider supporting development by making a
+    <a href="http://magit.vc/donations.html">donation</a>.
+  </b>
 </p>
+***
+
+<p align="center">
+  <img src="http://magit.vc/img/r.png" align="top">
+  User who haven't read the
+  <a href="http://magit.vc/manual/magit/FAQ.html"><b>FAQ</b></a>
+  are frequently surprised that:
+  <img src="http://magit.vc/img/l.png" align="top">
+</p>
+
+- Magit 2.1 and later (aka > 20150701) requires at least
+  Emacs 24.4 and Git 1.9.4.
+- The branch manager has moved to <kbd>y</kbd>.
+
 ***
 
 Support
@@ -62,8 +78,9 @@ to be merged, then open a [pull requests][pulls]. Please also see
 Acknowledgments
 ===============
 
-Magit was started by [Marius Vollmer][marius] and is now maintained
-by [Jonas Bernoulli][jonas].  Other former maintainers are
+Magit was started by [Marius Vollmer][marius], and is now maintained
+by [Jonas Bernoulli][jonas], [Kyle Meyer][kyle], and
+[Noam Postavsky][noam].  Other former maintainers are
 [Nicolas Dudebout][nicolas], [Peter J. Weisberg][peter],
 [Phil Jackson][phil], [Rémi Vanicat][remi], and [Yann Hodique][yann].
 Many more people have [contributed code][authors] and suggested
@@ -87,8 +104,10 @@ Thanks to all of you, may (the history of) the source be with you!
 [list]:    https://groups.google.com/forum/?fromgroups#!forum/magit
 
 [jonas]:   http://emacsair.me
+[kyle]:    https://github.com/kyleam
 [marius]:  https://github.com/mvollmer
 [nicolas]: http://dudebout.com
+[noam]:    https://github.com/npostavs
 [peter]:   https://github.com/pjweisberg
 [phil]:    https://github.com/philjackson
 [remi]:    https://github.com/vanicat

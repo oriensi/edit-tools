@@ -3,9 +3,9 @@ include default.mk
 
 .PHONY: lisp \
 	install install-lisp install-docs install-info \
-	test test-interactive \
-	clean clean-lisp clean-docs \
-	genstats \
+	test test-interactive magit \
+	clean clean-lisp clean-docs clean-archives \
+	genstats melpa-pre-release melpa-post-release \
 	dist magit-$(VERSION).tar.gz elpa $(ELPA_ARCHIVES)
 
 all: lisp docs
@@ -35,6 +35,7 @@ help:
 	$(info )
 	$(info make test             - run tests)
 	$(info make test-interactive - run tests interactively)
+	$(info make magit            - run emacs -Q plus Magit)
 	$(info )
 	$(info Release Managment)
 	$(info =================)
@@ -44,7 +45,9 @@ help:
 	$(info make authors          - regenerate AUTHORS.md)
 	$(info make dist             - create tarballs)
 	$(info make elpa             - create elpa tarballs)
-	$(info make marmalade        - upload elpa tarballs to marmalade)
+	$(info make VERSION=... melpa-pre-release)
+	$(info make VERSION=... melpa-post-release)
+	$(info -                     - fixup version strings)
 	@printf "\n"
 
 lisp:
@@ -81,17 +84,28 @@ test-interactive:
 	(load-file \"t/magit-tests.el\")\
 	(ert t))"
 
-clean: clean-lisp clean-docs
+magit: clean-lisp
+	@$(EMACSBIN) -Q $(LOAD_PATH) --eval "(progn\
+	(require 'magit)\
+	(global-set-key \"\\C-xg\" 'magit-status)\
+	(tool-bar-mode 0)\
+	(menu-bar-mode 0)\
+	(scroll-bar-mode 0))"
+
+clean: clean-lisp clean-docs clean-archives
 	@printf "Cleaning...\n"
 	@$(RM) $(ELCS) $(ELGS) # temporary cleanup kludge
-	@$(RM) git-commit-*.el *.tar.gz *.tar Documentation/*.texi~
-	@$(RMDIR) magit-$(VERSION)
+	@$(RM) Documentation/*.texi~ magit-pkg.el t/magit-tests.elc
 
 clean-lisp:
 	@$(MAKE) -C lisp clean
 
 clean-docs:
 	@$(MAKE) -C Documentation clean
+
+clean-archives:
+	@$(RM) git-commit-*.el *.tar.gz *.tar
+	@$(RMDIR) magit-$(VERSION)
 
 # Release management
 
@@ -107,8 +121,8 @@ dist: magit-$(VERSION).tar.gz
 DIST_ROOT_FILES = COPYING default.mk Makefile README.md
 DIST_LISP_FILES = $(addprefix lisp/,$(ELS) magit-version.el Makefile)
 DIST_DOCS_FILES = $(addprefix Documentation/,$(TEXIPAGES) AUTHORS.md Makefile)
-ifneq ("$(wildcard RelNotes/$(VERSION).txt)","")
-  DIST_DOCS_FILES += RelNotes/$(VERSION).txt
+ifneq ("$(wildcard Documentation/RelNotes/$(VERSION).txt)","")
+  DIST_DOCS_FILES += Documentation/RelNotes/$(VERSION).txt
 endif
 
 magit-$(VERSION).tar.gz: lisp info
@@ -126,7 +140,7 @@ marmalade: elpa
 	@printf "Uploading with-editor-$(VERSION)\n"
 	@marmalade-upload with-editor-$(VERSION).tar
 	@printf "Uploading git-commit-$(VERSION)\n"
-	@marmalade-upload git-commit-$(VERSION).tar
+	@marmalade-upload git-commit-$(VERSION).el
 	@printf "Uploading magit-popup-$(VERSION)\n"
 	@marmalade-upload magit-popup-$(VERSION).tar
 	@printf "Uploading magit-$(VERSION)\n"
@@ -142,8 +156,9 @@ elpa: $(ELPA_ARCHIVES)
 define with_editor_pkg
 (define-package "with-editor" "$(VERSION)"
   "Use the Emacsclient as $$EDITOR"
-  '((emacs "24.4")
-    (dash "2.10.0")))
+  '((emacs "$(EMACS_VERSION)")
+    (async "$(ASYNC_VERSION)")
+    (dash "$(DASH_VERSION)")))
 endef
 # '
 export with_editor_pkg
@@ -160,12 +175,15 @@ with-editor-$(VERSION).tar: info
 git-commit-$(VERSION).el:
 	@printf "Packing $@\n"
 	@$(CP) lisp/git-commit.el git-commit-$(VERSION).el
+	@$(SED) -i git-commit-$(VERSION).el \
+	  -e "s/^;; Keywords:/;; Package-Version: $(VERSION)\n;; Keywords:/"
 
 define magit_popup_pkg
 (define-package "magit-popup" "$(VERSION)"
   "Define prefix-infix-suffix command combos"
-  '((emacs "24.4")
-    (dash "2.10.0")))
+  '((emacs "$(EMACS_VERSION)")
+    (async "$(ASYNC_VERSION)")
+    (dash "$(DASH_VERSION)")))
 endef
 # '
 export magit_popup_pkg
@@ -186,11 +204,12 @@ ELPA_DOCS_FILES = $(addprefix Documentation/,AUTHORS.md dir magit.info)
 define magit_pkg
 (define-package "magit" "$(VERSION)"
   "A Git porcelain inside Emacs"
-  '((emacs "24.4")
-    (dash "2.10.0")
-    (with-editor "2.1.0")
-    (git-commit "2.1.0")
-    (magit-popup "2.1.0")))
+  '((emacs "$(EMACS_VERSION)")
+    (async "$(ASYNC_VERSION)")
+    (dash "$(DASH_VERSION)")
+    (with-editor "$(VERSION)")
+    (git-commit "$(VERSION)")
+    (magit-popup "$(VERSION)")))
 endef
 # '
 export magit_pkg
@@ -203,3 +222,31 @@ magit-$(VERSION).tar: lisp info
 	@$(CP) $(ELPA_DOCS_FILES) magit-$(VERSION)
 	@$(TAR) c --mtime=./magit-$(VERSION) -f magit-$(VERSION).tar magit-$(VERSION)
 	@$(RMDIR) magit-$(VERSION)
+
+define set_package_requires
+(require 'dash)
+(dolist (lib (list "with-editor" "git-commit" "magit-popup" "magit"))
+  (with-current-buffer (find-file-noselect (format "lisp/%s.el" lib))
+    (goto-char (point-min))
+    (re-search-forward "^;; Package-Requires: ")
+    (let ((s (read (buffer-substring (point) (line-end-position)))))
+      (--when-let (assq 'async       s) (setcdr it (list async-version)))
+      (--when-let (assq 'with-editor s) (setcdr it (list "$(VERSION)")))
+      (--when-let (assq 'git-commit  s) (setcdr it (list "$(VERSION)")))
+      (--when-let (assq 'magit-popup s) (setcdr it (list "$(VERSION)")))
+      (delete-region (point) (line-end-position))
+      (insert (format "%S" s))
+      (save-buffer))))
+endef
+# '
+export set_package_requires
+
+melpa-pre-release:
+	@$(BATCH) --eval "(progn\
+        (setq async-version \"$(ASYNC_VERSION)\")\
+        $$set_package_requires)"
+
+melpa-post-release:
+	@$(BATCH) --eval "(progn\
+        (setq async-version \"20150812\")\
+        $$set_package_requires)"

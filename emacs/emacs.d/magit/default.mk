@@ -11,6 +11,7 @@ CP    ?= install -p -m 644
 MKDIR ?= install -p -m 755 -d
 RMDIR ?= rm -rf
 TAR   ?= tar
+SED   ?= sed
 
 PACKAGES = with-editor git-commit magit-popup magit
 PACKAGE_VERSIONS = $(addsuffix -$(VERSION),$(PACKAGES))
@@ -45,6 +46,11 @@ ELCS = $(ELS:.el=.elc)
 ELMS = magit.el $(filter-out $(addsuffix .el,$(PACKAGES)),$(ELS))
 ELGS = magit-autoloads.el magit-version.el
 
+# minimal requirements
+EMACS_VERSION = 24.4
+ASYNC_VERSION = 1.4
+DASH_VERSION = 2.11.0
+
 EMACSBIN ?= emacs
 
 ELPA_DIR ?= $(HOME)/.emacs.d/elpa
@@ -67,9 +73,9 @@ endif
 BATCH = $(EMACSBIN) -batch -Q $(LOAD_PATH)
 
 EMACSOLD := $(shell $(BATCH) --eval \
-  "(and (version< emacs-version \"24.4\") (princ \"true\"))")
+  "(and (version< emacs-version \"$(EMACS_VERSION)\") (princ \"true\"))")
 ifeq "$(EMACSOLD)" "true"
-  $(error At least version 24.4 of Emacs is required)
+  $(error At least version $(EMACS_VERSION) of Emacs is required)
 endif
 
 VERSION := $(shell \
