@@ -3,7 +3,13 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  (package-initialize))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -207,11 +213,11 @@
 (setq x-select-enable-clipboard t)
 
 ;; IME
-(add-to-list 'load-path "~/.emacs.d/ibus-el")
-(require 'ibus)
-(add-hook 'after-init-hook 'ibus-mode-on)
-(global-unset-key (kbd "C-SPC"))
-(global-set-key (kbd "C-SPC") 'ibus-toggle)
+;; (add-to-list 'load-path "~/.emacs.d/ibus-el")
+;; (require 'ibus)
+;; (add-hook 'after-init-hook 'ibus-mode-on)
+;; (global-unset-key (kbd "C-SPC"))
+;; (global-set-key (kbd "C-SPC") 'ibus-toggle)
 
 ;; LaTeX
 ;; (load "auctex.el" nil t t)
@@ -222,6 +228,16 @@
 (setq TeX-engine 'xetex)
 (setq Tex-PDF-mode t)
 
+;; (require 'projectile)
+;; (projectile-global-mode)
+;; (setq projectile-enable-caching t)
+;; (global-set-key [f5] 'projectile-find-file)
+
+;;powerline
+;; (add-to-list 'load-path "~/.emacs.d/powerline")
+;; (require 'powerline)
+;; ;;(powerline-center-theme)
+;; (powerline-default-theme)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
