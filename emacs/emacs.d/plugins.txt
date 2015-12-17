@@ -1,4 +1,0 @@
-magit
-https://github.com/magit/magit.git
-
-
