@@ -32,11 +32,14 @@
 ;;'(mode-line ((t (:foreground "black" :background "#bb55ff" :box nil)))))
 ;;'(default ((t (:family "Bitstream Charter" :foundry "bitstream" :slant italic :weight normal :height 120 :width normal)))))
 
-;;font
-;;(set-default-font "Monaco-10")
-;;(set-default-font "monofur-12")
-;;(set-default-font "Bitstream Charter-12")
+;;font set for windows
+;; (set-default-font "Monaco-12")
+;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
+;;   (set-fontset-font (frame-parameter nil 'font)
+;;                     charset
+;;                     (font-spec :family "Microsoft Yahei" :size 16)))
 ;;(set-fontset-font "fontset-default" 'han '("Microsoft Yahei"."unicode-bmp"))
+
 ;; client font set
 (setq window-system-default-frame-alist
     '(
@@ -256,3 +259,7 @@
  '(mode-line ((t (:background "forest green" :foreground "black" :box nil))))
  '(powerline-active1 ((t (:inherit mode-line :background "dark goldenrod"))))
  '(vertical-border ((t (:foreground "green4")))))
+
+
+;; GTD
+(load-file "~/.emacs.d/dto-org-gtd.el")
