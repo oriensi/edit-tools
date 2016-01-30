@@ -1,6 +1,6 @@
-;;; magit-process.el --- process functionality
+;;; magit-process.el --- process functionality  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2010-2015  The Magit Project Contributors
+;; Copyright (C) 2010-2016  The Magit Project Contributors
 ;;
 ;; You should have received a copy of the AUTHORS.md file which
 ;; lists all contributors.  If not, see http://magit.vc/authors.
@@ -56,9 +56,11 @@ If t, use ptys: this enables Magit to prompt for passphrases when needed."
 
 (defcustom magit-need-cygwin-noglob
   (equal "x0\n" (with-temp-buffer
-                  (process-file magit-git-executable
-                                nil (current-buffer) nil
-                                "-c" "alias.echo=!echo" "echo" "x{0}")
+                  (let ((process-environment
+                         (append magit-git-environment process-environment)))
+                    (process-file magit-git-executable
+                                  nil (current-buffer) nil
+                                  "-c" "alias.echo=!echo" "echo" "x{0}"))
                   (buffer-string)))
   "Whether to use a workaround for Cygwin's globbing behavior.
 
@@ -88,6 +90,43 @@ When this is nil, no sections are ever removed."
   :group 'magit-process
   :type '(choice (const :tag "Never remove old sections" nil) integer))
 
+(defcustom magit-credential-cache-daemon-socket
+  (--some (-let [(prog . args) (split-string it)]
+            (if (string-match-p
+                 "\\`\\(?:\\(?:/.*/\\)?git-credential-\\)?cache\\'" prog)
+                (or (cl-loop for (opt val) on args
+                             if (string= opt "--socket")
+                             return val)
+                    (expand-file-name "~/.git-credential-cache/socket"))))
+          ;; Note: `magit-process-file' is not yet defined when
+          ;; evaluating this form, so we use `process-lines'.
+          (ignore-errors
+            (let ((process-environment
+                   (append magit-git-environment process-environment)))
+              (process-lines magit-git-executable
+                             "config" "--get-all" "credential.helper"))))
+  "If non-nil, start a credential cache daemon using this socket.
+
+When using Git's cache credential helper in the normal way, Emacs
+sends a SIGHUP to the credential daemon after the git subprocess
+has exited, causing the daemon to also quit.  This can be avoided
+by starting the `git-credential-cache--daemon' process directly
+from Emacs.
+
+The function `magit-maybe-start-credential-cache-daemon' takes
+care of starting the daemon if necessary, using the value of this
+option as the socket.  If this option is nil, then it does not
+start any daemon.  Likewise if another daemon is already running,
+then it starts no new daemon.  This function has to be a member
+of the hook variable `magit-credential-hook' for this to work.
+If an error occurs while starting the daemon, most likely because
+the necessary executable is missing, then the function removes
+itself from the hook, to avoid further futile attempts."
+  :package-version '(magit . "2.3.0")
+  :group 'magit-process
+  :type '(choice (file  :tag "Socket")
+                 (const :tag "Don't start a cache daemon" nil)))
+
 (defcustom magit-process-yes-or-no-prompt-regexp
   " [\[(]\\([Yy]\\(?:es\\)?\\)[/|]\\([Nn]o?\\)[\])] ?[?:] ?$"
   "Regexp matching Yes-or-No prompts of Git and its subprocesses."
@@ -97,13 +136,34 @@ When this is nil, no sections are ever removed."
 
 (defcustom magit-process-password-prompt-regexps
   '("^\\(Enter \\)?[Pp]assphrase\\( for \\(RSA \\)?key '.*'\\)?: ?$"
-    "^\\(Enter \\)?[Pp]assword\\( for '.*'\\)?: ?$"
+    ;; match-group 99 is used to identify a host
+    "^\\(Enter \\)?[Pp]assword\\( for '\\(?99:.*\\)'\\)?: ?$"
     "^.*'s password: ?$"
     "^Yubikey for .*: ?$")
-  "List of regexps matching password prompts of Git and its subprocesses."
+  "List of regexps matching password prompts of Git and its subprocesses.
+Also see `magit-process-find-password-functions'."
   :package-version '(magit . "2.1.0")
   :group 'magit-process
   :type '(repeat (regexp)))
+
+(defcustom magit-process-find-password-functions nil
+  "List of functions to try in sequence to get a password.
+
+These functions may be called when git asks for a password, which
+is detected using `magit-process-password-prompt-regexps'.  They
+are called if and only if matching the prompt resulted in the
+value of the 99th submatch to be non-nil.  Therefore users can
+control for which prompts these functions should be called by
+putting the host name in the 99th submatch, or not.
+
+If the functions are called, then they are called in the order
+given, with the host name as only argument, until one of them
+returns non-nil.  If they are not called or none of them returns
+non-nil, then the password is read from the user instead."
+  :package-version '(magit . "2.3.0")
+  :group 'magit-process
+  :type 'hook
+  :options '(magit-process-password-auth-source))
 
 (defcustom magit-process-username-prompt-regexps
   '("^Username for '.*': ?$")
@@ -144,11 +204,12 @@ optional NODISPLAY is non-nil also display it."
   (interactive)
   (let ((topdir (magit-toplevel)))
     (unless topdir
-      (setq topdir default-directory)
-      (let (prev)
-        (while (not (equal topdir prev))
-          (setq prev topdir)
-          (setq topdir (file-name-directory (directory-file-name topdir))))))
+      (magit--with-safe-default-directory nil
+        (setq topdir default-directory)
+        (let (prev)
+          (while (not (equal topdir prev))
+            (setq prev topdir)
+            (setq topdir (file-name-directory (directory-file-name topdir)))))))
     (let ((buffer (or (--first (with-current-buffer it
                                  (and (eq major-mode 'magit-process-mode)
                                       (equal default-directory topdir)))
@@ -205,29 +266,11 @@ before use.
 
 After Git returns, the current buffer (if it is a Magit buffer)
 as well as the current repository's status buffer are refreshed.
-Unmodified buffers visiting files that are tracked in the current
-repository are reverted if `magit-revert-buffers' is non-nil.
 
 Process output goes into a new section in the buffer returned by
 `magit-process-buffer'."
   (magit-call-git args)
   (magit-refresh))
-
-(defun magit-run-git-no-revert (&rest args)
-  "Call Git synchronously in a separate process, and refresh.
-
-Option `magit-git-executable' specifies the Git executable and
-option `magit-git-global-arguments' specifies constant arguments.
-The arguments ARGS specify arguments to Git, they are flattened
-before use.
-
-After Git returns, the current buffer (if it is a Magit buffer)
-as well as the current repository's status buffer are refreshed.
-
-Process output goes into a new section in the buffer returned by
-`magit-process-buffer'."
-  (let ((inhibit-magit-revert t))
-    (magit-run-git args)))
 
 (defvar magit-pre-call-git-hook nil)
 
@@ -249,8 +292,7 @@ Process output goes into a new section in the buffer returned by
   "Call PROGRAM synchronously in a separate process.
 Process output goes into a new section in the buffer returned by
 `magit-process-buffer'."
-  (cl-destructuring-bind (process-buf . section)
-      (magit-process-setup program args)
+  (-let [(process-buf . section) (magit-process-setup program args)]
     (magit-process-finish
      (let ((inhibit-read-only t))
        (apply #'magit-process-file program nil process-buf nil args))
@@ -289,8 +331,6 @@ flattened before use.
 
 After Git returns, the current buffer (if it is a Magit buffer)
 as well as the current repository's status buffer are refreshed.
-Unmodified buffers visiting files that are tracked in the current
-repository are reverted if `magit-revert-buffers' is non-nil.
 When INPUT is nil then do not refresh any buffers.
 
 This function actually starts a asynchronous process, but it then
@@ -323,27 +363,13 @@ Display the command line arguments in the echo area.
 After Git returns some buffers are refreshed: the buffer that was
 current when this function was called (if it is a Magit buffer
 and still alive), as well as the respective Magit status buffer.
-Unmodified buffers visiting files that are tracked in the current
-repository are reverted if `magit-revert-buffers' is non-nil.
 
 See `magit-start-process' for more information."
   (message "Running %s %s" magit-git-executable
-           (mapconcat 'identity (-flatten args) " "))
+           (let ((m (mapconcat #'identity (-flatten args) " ")))
+             (remove-list-of-text-properties 0 (length m) '(face) m)
+             m))
   (magit-start-git nil args))
-
-(defun magit-run-git-async-no-revert (&rest args)
-  "Start Git, prepare for refresh, and return the process object.
-ARGS is flattened and then used as arguments to Git.
-
-Display the command line arguments in the echo area.
-
-After Git returns some buffers are refreshed: the buffer that was
-current when this function was called (if it is a Magit buffer
-and still alive), as well as the respective Magit status buffer.
-
-See `magit-start-process' for more information."
-  (let ((inhibit-magit-revert t))
-    (magit-run-git-async args)))
 
 (defun magit-run-git-with-editor (&rest args)
   "Export GIT_EDITOR and start Git.
@@ -358,8 +384,7 @@ and still alive), as well as the respective Magit status buffer.
 
 See `magit-start-process' and `with-editor' for more information."
   (with-editor "GIT_EDITOR"
-    (let ((magit-process-popup-time -1)
-          (inhibit-magit-revert nil))
+    (let ((magit-process-popup-time -1))
       (magit-run-git-async args))))
 
 (defun magit-run-git-sequencer (&rest args)
@@ -374,9 +399,6 @@ current when this function was called (if it is a Magit buffer
 and still alive), as well as the respective Magit status buffer.
 If the sequence stops at a commit, make the section representing
 that commit the current section by moving `point' there.
-
-Unmodified buffers visiting files that are tracked in the current
-repository are reverted if `magit-revert-buffers' is non-nil.
 
 See `magit-start-process' and `with-editor' for more information."
   (with-editor "GIT_EDITOR"
@@ -402,8 +424,6 @@ flattened before use.
 After Git returns some buffers are refreshed: the buffer that was
 current when this function was called (if it is a Magit buffer
 and still alive), as well as the respective Magit status buffer.
-Unmodified buffers visiting files that are tracked in the current
-repository are reverted if `magit-revert-buffers' is non-nil.
 
 See `magit-start-process' for more information."
   (run-hooks 'magit-pre-start-git-hook)
@@ -427,12 +447,10 @@ the sentinel and filter.
 After the process returns, `magit-process-sentinel' refreshes the
 buffer that was current when `magit-start-process' was called (if
 it is a Magit buffer and still alive), as well as the respective
-Magit status buffer.  Unmodified buffers visiting files that are
-tracked in the current repository are reverted if
-`magit-revert-buffers' is non-nil."
-  (cl-destructuring-bind (process-buf . section)
-      (magit-process-setup program args)
-    (let ((process
+Magit status buffer."
+  (-let* (((process-buf . section)
+           (magit-process-setup program args))
+          (process
            (let ((process-connection-type
                   ;; Don't use a pty, because it would set icrnl
                   ;; which would modify the input (issue #20).
@@ -442,27 +460,25 @@ tracked in the current repository are reverted if
              (apply #'start-file-process
                     (file-name-nondirectory program)
                     process-buf program args))))
-      (with-editor-set-process-filter process #'magit-process-filter)
-      (set-process-sentinel process #'magit-process-sentinel)
-      (set-process-buffer   process process-buf)
-      (process-put process 'section section)
-      (process-put process 'command-buf (current-buffer))
-      (process-put process 'default-dir default-directory)
-      (when inhibit-magit-refresh
-        (process-put process 'inhibit-refresh t))
-      (when inhibit-magit-revert
-        (process-put process 'inhibit-revert t))
-      (setf (magit-section-process section) process)
-      (with-current-buffer process-buf
-        (set-marker (process-mark process) (point)))
-      (when input
-        (with-current-buffer input
-          (process-send-region process (point-min) (point-max))
-          (process-send-eof    process)))
-      (setq magit-this-process process)
-      (setf (magit-section-value section) process)
-      (magit-process-display-buffer process)
-      process)))
+    (with-editor-set-process-filter process #'magit-process-filter)
+    (set-process-sentinel process #'magit-process-sentinel)
+    (set-process-buffer   process process-buf)
+    (process-put process 'section section)
+    (process-put process 'command-buf (current-buffer))
+    (process-put process 'default-dir default-directory)
+    (when inhibit-magit-refresh
+      (process-put process 'inhibit-refresh t))
+    (setf (magit-section-process section) process)
+    (with-current-buffer process-buf
+      (set-marker (process-mark process) (point)))
+    (when input
+      (with-current-buffer input
+        (process-send-region process (point-min) (point-max))
+        (process-send-eof    process)))
+    (setq magit-this-process process)
+    (setf (magit-section-value section) process)
+    (magit-process-display-buffer process)
+    process))
 
 ;;; Process Internals
 
@@ -534,8 +550,7 @@ tracked in the current repository are reverted if
     (when (eq process magit-this-process)
       (setq magit-this-process nil))
     (unless (process-get process 'inhibit-refresh)
-      (let ((inhibit-magit-revert (process-get process 'inhibit-revert))
-            (command-buf (process-get process 'command-buf)))
+      (let ((command-buf (process-get process 'command-buf)))
         (if (buffer-live-p command-buf)
             (with-current-buffer command-buf
               (magit-refresh))
@@ -621,13 +636,31 @@ tracked in the current repository are reverted if
           string)
          "\n"))))))
 
+(defun magit-process-password-auth-source (key)
+  "Use `auth-source-search' to get a password.
+If found, return the password.  Otherwise, return nil."
+  (require 'auth-source)
+  (let ((secret (plist-get (car (auth-source-search :max 1 :host key
+                                                    :require '(:host)))
+                           :secret)))
+    (if (functionp secret)
+        (funcall secret)
+      secret)))
+
 (defun magit-process-password-prompt (process string)
-  "Forward password prompts to the user."
+  "Find a password based on prompt STRING and send it to git.
+First try the functions in `magit-process-find-password-functions'.
+If none of them returns a password, then read it from the user
+instead."
   (--when-let (magit-process-match-prompt
                magit-process-password-prompt-regexps string)
     (process-send-string
      process (magit-process-kill-on-abort process
-               (concat (read-passwd it) "\n")))))
+               (concat (or (--when-let (match-string 99 string)
+                             (run-hook-with-args-until-success
+                              'magit-process-find-password-functions it))
+                           (read-passwd it))
+                       "\n")))))
 
 (defun magit-process-username-prompt (process string)
   "Forward username prompts to the user."
@@ -638,32 +671,77 @@ tracked in the current repository are reverted if
                (concat (read-string it nil nil (user-login-name)) "\n")))))
 
 (defun magit-process-match-prompt (prompts string)
+  "Match STRING against PROMPTS and set match data.
+Return the matched string suffixed with \": \", if needed."
   (when (--any? (string-match it string) prompts)
     (let ((prompt (match-string 0 string)))
-      (cond ((string-match ": $" prompt) prompt)
-            ((string-match ":$"  prompt) (concat prompt " "))
-            (t                           (concat prompt ": "))))))
+      (cond ((string-suffix-p ": " prompt) prompt)
+            ((string-suffix-p ":"  prompt) (concat prompt " "))
+            (t                             (concat prompt ": "))))))
+
+(defvar magit-credential-hook nil
+  "Hook run before Git needs credentials.")
+
+(defvar magit-credential-cache-daemon-process nil)
+
+(defun magit-maybe-start-credential-cache-daemon ()
+  "Maybe start a `git-credential-cache--daemon' process.
+
+If such a process is already running or if the value of option
+`magit-credential-cache-daemon-socket' is nil, then do nothing.
+Otherwise start the process passing the value of that options
+as argument."
+  (unless (or (not magit-credential-cache-daemon-socket)
+              (process-live-p magit-credential-cache-daemon-process)
+              (memq magit-credential-cache-daemon-process
+                    (list-system-processes)))
+    (setq magit-credential-cache-daemon-process
+          (or (--first (-let (((&alist 'comm comm 'user user)
+                               (process-attributes it)))
+                         (and (string= comm "git-credential-cache--daemon")
+                              (string= user user-login-name)))
+                       (list-system-processes))
+              (condition-case nil
+                  (start-process "git-credential-cache--daemon"
+                                 " *git-credential-cache--daemon*"
+                                 magit-git-executable
+                                 "credential-cache--daemon"
+                                 magit-credential-cache-daemon-socket)
+                ;; Some Git implementations (e.g. Windows) won't have
+                ;; this program; if we fail the first time, stop trying.
+                ((debug error)
+                 (remove-hook 'magit-credential-hook
+                              #'magit-maybe-start-credential-cache-daemon)))))))
+
+(add-hook 'magit-credential-hook #'magit-maybe-start-credential-cache-daemon)
 
 (defun magit-process-wait ()
   (while (and magit-this-process
               (eq (process-status magit-this-process) 'run))
-    (sit-for 0.1 t)))
+    (sleep-for 0.005)))
 
-(defadvice tramp-sh-handle-start-file-process
-    (before magit-tramp-process-environment activate)
-  (when magit-tramp-process-environment
-    (ad-set-args 3 (append (cdr magit-tramp-process-environment)
-                           (cons (ad-get-arg 2)
-                                 (ad-get-args 3))))
-    (ad-set-arg  2 (car magit-tramp-process-environment))))
+(defun tramp-sh-handle-start-file-process--magit-tramp-process-environment
+    (fn name buffer program &rest args)
+  (if magit-tramp-process-environment
+      (apply fn name buffer
+             (car magit-tramp-process-environment)
+             (append (cdr magit-tramp-process-environment)
+                     (cons program args)))
+    (apply fn name buffer program args)))
 
-(defadvice tramp-sh-handle-process-file
-    (before magit-tramp-process-environment activate)
-  (when magit-tramp-process-environment
-    (ad-set-args 4 (append magit-tramp-process-environment
-                           (cons (ad-get-arg 0)
-                                 (ad-get-args 4))))
-    (ad-set-arg  0 "env")))
+(advice-add 'tramp-sh-handle-start-file-process :around
+            'tramp-sh-handle-start-file-process--magit-tramp-process-environment)
+
+(defun tramp-sh-handle-process-file--magit-tramp-process-environment
+    (fn program &optional infile destination display &rest args)
+  (if magit-tramp-process-environment
+      (apply fn "env" infile destination display
+             (append magit-tramp-process-environment
+                     (cons program args)))
+    (apply fn program infile destination display args)))
+
+(advice-add 'tramp-sh-handle-process-file :around
+            'tramp-sh-handle-process-file--magit-tramp-process-environment)
 
 (defun magit-process-set-mode-line (program args)
   (when (equal program magit-git-executable)
@@ -680,6 +758,8 @@ tracked in the current repository are reverted if
   (concat "^\\(?:error\\|fatal\\|git\\): \\(.*\\)" paragraph-separate))
 
 (define-error 'magit-git-error "Git error")
+
+(defvar-local magit-this-error nil)
 
 (defun magit-process-finish (arg &optional process-buf command-buf
                                  default-dir section)
@@ -700,12 +780,12 @@ tracked in the current repository are reverted if
         (save-excursion
           (delete-char 3)
           (set-marker-insertion-type marker nil)
-          (insert (propertize (format "%3s" arg) 'magit-section section))
-          (set-marker-insertion-type marker t)
-          (magit-put-face-property (- (point) 3) (point)
-                                   (if (= arg 0)
-                                       'magit-process-ok
-                                     'magit-process-ng)))
+          (insert (propertize (format "%3s" arg)
+                              'magit-section section
+                              'face (if (= arg 0)
+                                        'magit-process-ok
+                                      'magit-process-ng)))
+          (set-marker-insertion-type marker t))
         (if (= (magit-section-end section)
                (+ (line-end-position) 2))
             (save-excursion
@@ -729,11 +809,13 @@ tracked in the current repository are reverted if
                    "Git failed")))
       (if magit-process-raise-error
           (signal 'magit-git-error msg)
+        (--when-let (magit-mode-get-buffer 'magit-status-mode)
+          (setq magit-this-error msg))
         (message "%s ... [%s buffer %s for details]" msg
                  (-if-let (key (and (buffer-live-p command-buf)
                                     (with-current-buffer command-buf
                                       (car (where-is-internal
-                                            'magit-process-display-buffer)))))
+                                            'magit-process-buffer)))))
                      (format "Hit %s to see" (key-description key))
                    "See")
                  (buffer-name process-buf)))))

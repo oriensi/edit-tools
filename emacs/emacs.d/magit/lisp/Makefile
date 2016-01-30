@@ -14,6 +14,7 @@ magit-mode.elc:		magit-section.elc magit-git.elc
 magit-popup.elc:
 magit-process.elc:	with-editor.elc magit-utils.elc magit-section.elc \
 			magit-git.elc magit-mode.elc
+magit-autorevert.elc:	magit-git.elc magit-process.elc
 magit-core.elc:		magit-utils.elc magit-section.elc magit-git.elc \
 			magit-mode.elc magit-popup.elc magit-process.elc
 magit-diff.elc:		git-commit.elc magit-core.elc
@@ -61,6 +62,18 @@ magit-version.el:
 
 magit-autoloads.el: $(ELS)
 	@printf "Generating $@\n"
+	@$(RM) $@
+	@printf ";;; $@ --- automatically extracted autoloads\n" >> $@
+	@printf ";;\n" >> $@
+	@printf ";;; Code:\n" >> $@ >> $@
+	@printf "(add-to-list 'load-path (directory-file-name (or (file-name-directory #$$) (car load-path))))\n" >> $@
+	@printf "\n" >> $@
+	@printf ";; Local Variables:\n" >> $@
+	@printf ";; version-control: never\n" >> $@
+	@printf ";; no-byte-compile: t\n" >> $@
+	@printf ";; no-update-autoloads: t\n" >> $@
+	@printf ";; End:\n" >> $@
+	@printf ";;; $@ ends here\n" >> $@
 	@$(BATCH) --eval "(progn\
 	(fset 'message (lambda (&rest _)))\
 	(setq make-backup-files nil)\

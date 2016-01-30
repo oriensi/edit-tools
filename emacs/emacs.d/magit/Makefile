@@ -5,7 +5,7 @@ include default.mk
 	install install-lisp install-docs install-info \
 	test test-interactive magit \
 	clean clean-lisp clean-docs clean-archives \
-	genstats melpa-pre-release melpa-post-release \
+	genstats bump-version melpa-post-release \
 	dist magit-$(VERSION).tar.gz elpa $(ELPA_ARCHIVES)
 
 all: lisp docs
@@ -13,6 +13,8 @@ all: lisp docs
 help:
 	$(info )
 	$(info Current version: magit-$(VERSION))
+	$(info )
+	$(info See default.mk for variables you might want to set.)
 	$(info )
 	$(info Build)
 	$(info =====)
@@ -45,7 +47,8 @@ help:
 	$(info make authors          - regenerate AUTHORS.md)
 	$(info make dist             - create tarballs)
 	$(info make elpa             - create elpa tarballs)
-	$(info make VERSION=... melpa-pre-release)
+	$(info make marmalade        - upload to marmalade)
+	$(info make VERSION=... bump-version)
 	$(info make VERSION=... melpa-post-release)
 	$(info -                     - fixup version strings)
 	@printf "\n"
@@ -85,7 +88,7 @@ test-interactive:
 	(ert t))"
 
 magit: clean-lisp
-	@$(EMACSBIN) -Q $(LOAD_PATH) --eval "(progn\
+	@$(EMACSBIN) -Q $(LOAD_PATH) --debug-init --eval "(progn\
 	(require 'magit)\
 	(global-set-key \"\\C-xg\" 'magit-status)\
 	(tool-bar-mode 0)\
@@ -95,7 +98,8 @@ magit: clean-lisp
 clean: clean-lisp clean-docs clean-archives
 	@printf "Cleaning...\n"
 	@$(RM) $(ELCS) $(ELGS) # temporary cleanup kludge
-	@$(RM) Documentation/*.texi~ magit-pkg.el t/magit-tests.elc
+	@$(RM) Documentation/*.texi~ Documentation/*.info-1 Documentation/*.info-2
+	@$(RM) magit-pkg.el t/magit-tests.elc
 
 clean-lisp:
 	@$(MAKE) -C lisp clean
@@ -231,6 +235,7 @@ define set_package_requires
     (re-search-forward "^;; Package-Requires: ")
     (let ((s (read (buffer-substring (point) (line-end-position)))))
       (--when-let (assq 'async       s) (setcdr it (list async-version)))
+      (--when-let (assq 'dash        s) (setcdr it (list dash-version)))
       (--when-let (assq 'with-editor s) (setcdr it (list "$(VERSION)")))
       (--when-let (assq 'git-commit  s) (setcdr it (list "$(VERSION)")))
       (--when-let (assq 'magit-popup s) (setcdr it (list "$(VERSION)")))
@@ -241,12 +246,31 @@ endef
 # '
 export set_package_requires
 
-melpa-pre-release:
+define set_manual_version
+(let ((version (split-string "$(VERSION)" "\\.")))
+  (setq version (concat (car version) "." (cadr version)))
+  (dolist (file (list "with-editor" "magit-popup" "magit"))
+    (with-current-buffer (find-file-noselect (format "Documentation/%s.org" file))
+      (goto-char (point-min))
+      (re-search-forward "^#\\+SUBTITLE: for version ")
+      (delete-region (point) (line-end-position))
+      (insert version)
+      (save-buffer))))
+endef
+#'
+export set_manual_version
+
+bump-version: bump-version-1 texi
+bump-version-1:
 	@$(BATCH) --eval "(progn\
         (setq async-version \"$(ASYNC_VERSION)\")\
-        $$set_package_requires)"
+        (setq dash-version \"$(DASH_VERSION)\")\
+        $$set_package_requires\
+        $$set_manual_version)"
 
 melpa-post-release:
 	@$(BATCH) --eval "(progn\
-        (setq async-version \"20150812\")\
+        (setq async-version \"$(ASYNC_MELPA_SNAPSHOT)\")\
+        (setq dash-version \"$(DASH_MELPA_SNAPSHOT)\")\
         $$set_package_requires)"
+	git commit -a -m "reset Package-Requires for Melpa"

@@ -3,10 +3,7 @@ include ../default.mk
 
 MAKEINFO ?= makeinfo
 
-INSTALL_INFO ?= $(shell \
-  hash ginstall-info 2> /dev/null\
-  && printf ginstall-info\
-  || printf install-info)
+INSTALL_INFO ?= $(shell command -v ginstall-info || printf install-info)
 
 DOC_LOAD_PATH ?= -L ../../dash -L ../../org/lisp -L ../../ox-texinfo+
 
@@ -39,7 +36,7 @@ info: $(INFOPAGES) dir
 
 %.info: %.texi
 	@printf "Generating $@\n"
-	@$(MAKEINFO) $< -o $@
+	@$(MAKEINFO) --no-split $< -o $@
 
 dir: magit.info magit-popup.info with-editor.info
 	@printf "Generating dir\n"
@@ -62,7 +59,7 @@ clean:
 authors: AUTHORS.md
 AUTHORS.md:
 	@printf "Generating AUTHORS.md..."
-	@test -d $(TOP).git \
+	@test -e $(TOP).git \
 	&& (printf "$$AUTHORS_HEADER\n" > $@ \
 	&& git log --pretty=format:'- %aN <%aE>' | sort -u >> $@ \
 	&& printf "done\n" ; ) \

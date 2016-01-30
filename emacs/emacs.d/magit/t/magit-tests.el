@@ -1,6 +1,6 @@
 ;;; magit-tests.el --- tests for Magit
 
-;; Copyright (C) 2011-2015  The Magit Project Contributors
+;; Copyright (C) 2011-2016  The Magit Project Contributors
 ;;
 ;; License: GPLv3
 
@@ -182,13 +182,42 @@
     (should (equal (magit-list-remote-branch-names "origin" t)
                    (list "master")))))
 
+(ert-deftest magit-process:match-prompt-nil-when-no-match ()
+  (should (null (magit-process-match-prompt '("^foo: ?$") "bar: "))))
+
+(ert-deftest magit-process:match-prompt-non-nil-when-match ()
+  (should (magit-process-match-prompt '("^foo: ?$") "foo: ")))
+
+(ert-deftest magit-process:match-prompt-match-non-first-prompt ()
+  (should (magit-process-match-prompt '("^bar: ?$ " "^foo: ?$") "foo: ")))
+
+(ert-deftest magit-process:match-prompt-suffixes-prompt ()
+  (let ((prompts '("^foo: ?$")))
+    (should (equal (magit-process-match-prompt prompts "foo:")  "foo: "))
+    (should (equal (magit-process-match-prompt prompts "foo: ") "foo: "))))
+
+(ert-deftest magit-process:match-prompt-preserves-match-group ()
+  (let* ((prompts '("^foo '\\(?99:.*\\)': ?$"))
+         (prompt (magit-process-match-prompt prompts "foo 'bar':")))
+    (should (equal prompt "foo 'bar': "))
+    (should (equal (match-string 99 "foo 'bar':") "bar"))))
+
+(ert-deftest magit-process:password-prompt ()
+  (let ((magit-process-find-password-functions
+         (list (lambda (host) (when (string= host "www.host.com") "mypasswd")))))
+    (cl-letf (((symbol-function 'process-send-string)
+               (lambda (process string) string)))
+      (should (string-equal (magit-process-password-prompt
+                             nil "Password for 'www.host.com':")
+                            "mypasswd\n")))))
+
 ;;; Status
 
-(defun magit-test-get-section (type info)
+(defun magit-test-get-section (list file)
   (magit-status-internal default-directory)
-  (--first (equal (magit-section-value it) info)
+  (--first (equal (magit-section-value it) file)
            (magit-section-children
-            (magit-get-section `((,type) (status))))))
+            (magit-get-section `(,list (status))))))
 
 (ert-deftest magit-status:file-sections ()
   (magit-with-test-repository
@@ -197,20 +226,20 @@
       (modify "file")
       (modify "file with space")
       (modify "file with äöüéλ")
-      (should (magit-test-get-section 'untracked "file"))
-      (should (magit-test-get-section 'untracked "file with space"))
-      (should (magit-test-get-section 'untracked "file with äöüéλ"))
+      (should (magit-test-get-section '(untracked) "file"))
+      (should (magit-test-get-section '(untracked) "file with space"))
+      (should (magit-test-get-section '(untracked) "file with äöüéλ"))
       (magit-stage-modified t)
-      (should (magit-test-get-section 'staged "file"))
-      (should (magit-test-get-section 'staged "file with space"))
-      (should (magit-test-get-section 'staged "file with äöüéλ"))
+      (should (magit-test-get-section '(staged) "file"))
+      (should (magit-test-get-section '(staged) "file with space"))
+      (should (magit-test-get-section '(staged) "file with äöüéλ"))
       (magit-git "add" ".")
       (modify "file")
       (modify "file with space")
       (modify "file with äöüéλ")
-      (should (magit-test-get-section 'unstaged "file"))
-      (should (magit-test-get-section 'unstaged "file with space"))
-      (should (magit-test-get-section 'unstaged "file with äöüéλ")))))
+      (should (magit-test-get-section '(unstaged) "file"))
+      (should (magit-test-get-section '(unstaged) "file with space"))
+      (should (magit-test-get-section '(unstaged) "file with äöüéλ")))))
 
 (ert-deftest magit-status:log-sections ()
   (magit-with-test-repository
@@ -221,10 +250,12 @@
     (magit-git "branch" "--set-upstream-to=origin/master")
     (magit-git "reset" "--hard" "HEAD~")
     (magit-git "commit" "-m" "unpushed" "--allow-empty")
-    (should (magit-test-get-section 'unpulled
-                                    (magit-rev-parse "--short" "origin/master")))
-    (should (magit-test-get-section 'unpushed
-                                    (magit-rev-parse "--short" "master")))))
+    (should (magit-test-get-section
+             '(unpulled . "..@{upstream}")
+             (magit-rev-parse "--short" "origin/master")))
+    (should (magit-test-get-section
+             '(unpushed . "@{upstream}..")
+             (magit-rev-parse "--short" "master")))))
 
 ;;; magit-tests.el ends soon
 (provide 'magit-tests)

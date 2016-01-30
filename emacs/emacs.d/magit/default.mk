@@ -7,6 +7,11 @@ infodir  ?= $(sharedir)/info
 docdir   ?= $(sharedir)/doc/magit
 statsdir ?= ./stats
 
+# You might also want to set LOAD_PATH.  If you do, then it must
+# contain "-L .".  If you don't then the default is set, assuming
+# that all dependencies are installed either at ../<DEPENDENCY>,
+# or using package.el at ELPA_DIR/<DEPENDENCY>-<HIGHEST-VERSION>.
+
 CP    ?= install -p -m 644
 MKDIR ?= install -p -m 755 -d
 RMDIR ?= rm -rf
@@ -25,6 +30,7 @@ ELS += magit-popup.el
 ELS += magit-utils.el
 ELS += magit-section.el
 ELS += magit-git.el
+ELS += magit-autorevert.el
 ELS += magit-mode.el
 ELS += magit-process.el
 ELS += magit-core.el
@@ -48,10 +54,14 @@ ELGS = magit-autoloads.el magit-version.el
 
 # minimal requirements
 EMACS_VERSION = 24.4
-ASYNC_VERSION = 1.4
-DASH_VERSION = 2.11.0
+ASYNC_VERSION = 1.5
+DASH_VERSION = 2.12.1
+ASYNC_MELPA_SNAPSHOT = 20150909.2257
+DASH_MELPA_SNAPSHOT = 20151021.113
 
 EMACSBIN ?= emacs
+
+ifndef LOAD_PATH
 
 ELPA_DIR ?= $(HOME)/.emacs.d/elpa
 
@@ -62,13 +72,18 @@ ifeq "$(DASH_DIR)" ""
   DASH_DIR = $(TOP)../dash
 endif
 
-CYGPATH := $(shell cygpath --version 2>/dev/null)
+SYSTYPE := $(shell $(EMACSBIN) -Q --batch --eval "(princ system-type)")
+ifeq ($(SYSTYPE), windows-nt)
+  CYGPATH := $(shell cygpath --version 2>/dev/null)
+endif
 
 ifdef CYGPATH
   LOAD_PATH ?= -L $(TOP)/lisp -L $(shell cygpath --mixed $(DASH_DIR))
 else
   LOAD_PATH ?= -L $(TOP)/lisp -L $(DASH_DIR)
 endif
+
+endif # ifndef LOAD_PATH
 
 BATCH = $(EMACSBIN) -batch -Q $(LOAD_PATH)
 
