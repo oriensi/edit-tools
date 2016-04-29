@@ -17,7 +17,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;; '(menu-bar-mode nil)
- '(package-selected-packages (quote (whitespace dash)))
+ '(package-selected-packages (quote (yasnippet whitespace dash)))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
@@ -139,6 +139,10 @@
 ;;匹配括号
 (show-paren-mode t)
 
+;; 美化显示符号
+(prettify-symbols-mode)
+(global-prettify-symbols-mode 1)
+
 ;;是否备份
 (setq make-backup-files nil)
 
@@ -169,12 +173,6 @@
 ;; (require 'android-compile)
 ;; (require 'android-host)
 
-;;powerline
-(add-to-list 'load-path "~/.emacs.d/powerline")
-(require 'powerline)
-;;(powerline-center-theme)
-(powerline-default-theme)
-
 ;; git设置 不使用vc-git
 (delete 'Git vc-handled-backends)
 (remove-hook 'find-file-hook 'vc-find-file-hook)
@@ -202,6 +200,10 @@
 ;;shell mode 正常显示颜色
 ;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; yasnippet
+(require 'yasnippet)
+(yas-global-mode 1)
 
 ;; whitespace
 (require 'whitespace)
@@ -237,10 +239,10 @@
 ;; (global-set-key [f5] 'projectile-find-file)
 
 ;;powerline
-;; (add-to-list 'load-path "~/.emacs.d/powerline")
-;; (require 'powerline)
-;; ;;(powerline-center-theme)
-;; (powerline-default-theme)
+(add-to-list 'load-path "~/.emacs.d/powerline")
+(require 'powerline)
+;;(powerline-center-theme)
+(powerline-default-theme)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
