@@ -73,7 +73,7 @@
 
 (defvar org-gtd-other-files)
 (setf org-gtd-other-files (list
-                           (concat gtd-path "/projects/third-part-monitor.org")
+                           (concat gtd-path "/projects")
                            (concat gtd-path "/remember.org")
                            (concat gtd-path "/reading.org")))
 (setf org-agenda-files (cons org-gtd-file org-gtd-other-files))
