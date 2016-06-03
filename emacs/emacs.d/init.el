@@ -265,3 +265,11 @@
 
 ;; GTD
 (load-file "~/.emacs.d/dto-org-gtd.el")
+
+;; chines calendar
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
+(require 'cal-china-x)
+(setq mark-holidays-in-calendar t)
+(setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
+(setq calendar-holidays cal-china-x-important-holidays)
+

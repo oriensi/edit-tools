@@ -8,3 +8,6 @@
   快速打开 搜索文件
   与cscope 有些重复
   适合较小的项目使用；android项目老老实实用cscope就好……
+
+* yasnippet
+  M-x list-packages
