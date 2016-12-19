@@ -9,6 +9,7 @@
    'package-archives
    '("melpa" . "http://melpa.org/packages/")
    t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
   (package-initialize))
 
 (custom-set-variables
