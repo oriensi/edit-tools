@@ -9,7 +9,7 @@
    'package-archives
    '("melpa" . "http://melpa.org/packages/")
    t)
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
   (package-initialize))
 
 (custom-set-variables
@@ -273,4 +273,3 @@
 (setq mark-holidays-in-calendar t)
 (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
 (setq calendar-holidays cal-china-x-important-holidays)
-
