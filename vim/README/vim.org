@@ -75,9 +75,14 @@ esc 键进入 normal 模式
 
 * 列模式
 C-v 进入列模式(windows 下的 gvim 因为 C-v 被粘贴占用，使用 C-q 进入列模式)
-1. j 向下移动光标
+1. 移动光标
+
    [[./l-i-1.png]]  [[./l-c-1.png]]
+
 2. I(插入) c(替换) 插入想要输入内容
+
    [[./l-i-2.png]]  [[./l-c-2.png]]
+
 3. esc 返回 normal 模式
-[[./l-i-3.png]]  [[./l-c-3.png]]
+
+   [[./l-i-3.png]]  [[./l-c-3.png]]
