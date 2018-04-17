@@ -20,6 +20,7 @@
    (quote
     (rich-minority evil ensime ghub magit-popup with-editor yasnippet whitespace dash)))
  '(rainbow-delimiters-highlight-braces-p nil)
+ '(safe-local-variable-values (quote ((bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)"))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
  ;; '(magit-push-always-verify nil)
@@ -109,6 +110,7 @@
 ;;(setq tab-width 4)
 (setq tab-stop-list())
 (setq-default indent-tabs-mode nil)
+(add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'java-mode-common-hook 'google-set-c-style)
@@ -127,6 +129,8 @@
 ;;(load-theme 'junio t)
 ;;(load-theme 'hickey t)
 
+(add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/emacs-color-theme-solarized-master/")
+;; (load-theme 'solarized-light t)
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'molokai t)
@@ -253,6 +257,8 @@
 ;; smart-mode-line
 (add-to-list 'load-path "~/.emacs.d/smart-mode-line")
 (require 'smart-mode-line)
+(setq sml/theme 'respectful)
+(setq sml/no-confirm-load-theme t)
 (sml/setup)
 
 (custom-set-faces
@@ -284,6 +290,7 @@
 (setq mark-holidays-in-calendar t)
 (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
 (setq calendar-holidays cal-china-x-important-holidays)
+
 ;; eshell
 (defun eshell/clr()
   (interactive)
