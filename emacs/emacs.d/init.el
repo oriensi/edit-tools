@@ -5,11 +5,9 @@
 ;; You may delete these explanatory comments.
 (when (>= emacs-major-version 24)
   (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa" . "http://melpa.org/packages/")
-   t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
   (package-initialize))
 
 (custom-set-variables
@@ -18,7 +16,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;; '(menu-bar-mode nil)
- '(package-selected-packages (quote (yasnippet whitespace dash)))
+ '(package-selected-packages
+   (quote
+    (rich-minority evil ensime ghub magit-popup with-editor yasnippet whitespace dash)))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
@@ -109,7 +109,9 @@
 ;;(setq tab-width 4)
 (setq tab-stop-list())
 (setq-default indent-tabs-mode nil)
-
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'java-mode-common-hook 'google-set-c-style)
 
 ;;以y/n代表yes/no
 (fset 'yes-or-no-p' y-or-n-p)
@@ -178,12 +180,12 @@
 (delete 'Git vc-handled-backends)
 (remove-hook 'find-file-hook 'vc-find-file-hook)
 
-(add-to-list 'load-path "~/.emacs.d/magit/lisp")
-(eval-after-load 'info
-  '(progn (info-initialize)
-          (add-to-list 'Info-directory-list "~/.emacs.d/magit/lisp/")))
-(defvar magit-emacsclient-executable nil)
+(add-to-list 'load-path "~/.emacs.d/magit/lisp/")
 (require 'magit)
+(with-eval-after-load 'info
+  (info-initialize)
+  (add-to-list 'Info-directory-list
+               "~/.emacs.d/magit/Documentation/"))
 
 ;; org-mode
 (setq org-src-fontify-natively t)
@@ -240,10 +242,19 @@
 ;; (global-set-key [f5] 'projectile-find-file)
 
 ;;powerline
-(add-to-list 'load-path "~/.emacs.d/powerline")
-(require 'powerline)
-;;(powerline-center-theme)
-(powerline-default-theme)
+;; (add-to-list 'load-path "~/.emacs.d/powerline")
+;; (require 'powerline)
+;; (powerline-center-evil-theme)
+;;(powerline-evil-theme)
+;;(setq powerline-default-separator 'nil)
+
+;; evil
+(evil-mode 1)
+;; smart-mode-line
+(add-to-list 'load-path "~/.emacs.d/smart-mode-line")
+(require 'smart-mode-line)
+(sml/setup)
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -273,3 +284,9 @@
 (setq mark-holidays-in-calendar t)
 (setq cal-china-x-important-holidays cal-china-x-chinese-holidays)
 (setq calendar-holidays cal-china-x-important-holidays)
+;; eshell
+(defun eshell/clr()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+(defalias 'em 'find-file-other-window)
