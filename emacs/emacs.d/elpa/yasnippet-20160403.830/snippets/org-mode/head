@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: head
-# key: head_
-# --
-#+TITLE: $1
-#+AUTHOR: fxdgrb@gmail.com
-#+STARTUP: indent
-#+OPTIONS: \n:t
-#+OPTIONS: ^:nil

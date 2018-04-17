@@ -1,9 +1,0 @@
-*~
-/*.tar
-/*.tar.gz
-/.dir-locals.el
-/Documentation/*.info
-/Documentation/dir
-/config.mk
-/lisp/magit-autoloads.el
-/lisp/magit-version.el
