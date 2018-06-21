@@ -4,15 +4,23 @@
 
 * plugins
 ** packages install
-   使用emacs 的包安装工具安装
-   + evil
-   + yasnippet
-   + rich-minority
-   + popup
-   + with-editor
-   + org
+使用emacs 的包安装工具安装
++ evil
++ yasnippet
++ rich-minority
++ with-editor
++ magit-popup
++ org
++ ghub
 ** github repositories
-   在github仓库中 clone 安装(git仓, 无法放到当前仓内)
-   + magit
-   + smart-mode-line
-   + powerline (支持evil模式, 不使用melpa中的)
+在github仓库中 clone 安装(git仓, 无法放到当前仓内)
++ magit
+  源: [[https://github.com/magit/magit.git]]
+  自己: [[git@github.com:oriensi/magit.git]]
+  更方便的使用git
++ smart-mode-line
++ powerline (支持evil模式, 不使用melpa中的)
++ projectile
+  源 [[https://github.com/bbatsov/projectile.git]]
+  快速打开 搜索文件
+  适合较小的项目使用，大型项目用 cscope 就好
