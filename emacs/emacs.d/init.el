@@ -60,7 +60,7 @@
          ;;(font . "monofur 13"))
          (font . "Source Code Pro 10"))
          ;;(font . "DejaVu Sans Mono 11"))
-         ;;(font . "Envy Code R 12"))
+         ;;(font . "Envy Code R Italic 12"))
         ;; if on term
         ;;(nil
         ;;(menu-bar-lines . 0) (tool-bar-lines . 0)
@@ -83,6 +83,7 @@
       '(dayname " " month "/" day
         "  " 24-hours ":" minutes))
 (display-time)
+(setq column-number-mode t)
 
 ;;(setq default-frame-alist
 ;;      '((top . 0)(left . 50)(height . 34)(width . 85)))
@@ -234,11 +235,11 @@
 ;; LaTeX
 ;; (load "auctex.el" nil t t)
 ;; (load "preview-latex.el" nill t t)
-(setq TeX-autosave t)
-(setq Tex-parse-self t)
-(setq-default Tex-master nil)
-(setq TeX-engine 'xetex)
-(setq Tex-PDF-mode t)
+;; (setq TeX-autosave t)
+;; (setq Tex-parse-self t)
+;; (setq-default Tex-master nil)
+;; (setq TeX-engine 'xetex)
+;; (setq Tex-PDF-mode t)
 
 ;; (require 'projectile)
 ;; (projectile-global-mode)
@@ -254,6 +255,8 @@
 
 ;; evil
 (evil-mode 1)
+
+(beacon-mode 1)
 ;; smart-mode-line
 (add-to-list 'load-path "~/.emacs.d/smart-mode-line")
 (require 'smart-mode-line)

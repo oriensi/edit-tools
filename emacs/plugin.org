@@ -7,11 +7,15 @@
 使用emacs 的包安装工具安装
 + evil
 + yasnippet
++ yasnippet-snippets
+  snippets 仓
 + rich-minority
 + with-editor
 + magit-popup
 + org
 + ghub
++ beacon
+  高端然并卵的东西
 ** github repositories
 在github仓库中 clone 安装(git仓, 无法放到当前仓内)
 + magit ::
