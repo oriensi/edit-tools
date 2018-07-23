@@ -114,6 +114,7 @@
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'java-mode-common-hook 'google-set-c-style)
 
 ;;以y/n代表yes/no
@@ -200,11 +201,6 @@
 (add-hook 'java-mode-hook (function cscope:hook))
 (setq cscope-do-not-update-database t)
 
-;;keymap
-(global-set-key (kbd "M-g") 'goto-line)
-(global-set-key (kbd "C-c f") 'find-name-dired)
-(global-set-key (kbd "C-c i") 'ibuffer)
-
 ;;shell mode 正常显示颜色
 ;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
@@ -245,6 +241,36 @@
 ;; (projectile-global-mode)
 ;; (setq projectile-enable-caching t)
 ;; (global-set-key [f5] 'projectile-find-file)
+(setq projectile-completion-system 'ivy)
+;; swiper
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+;; (global-set-key (kbd "M-x") 'counsel-M-x)
+;; (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;; (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+;; (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+;; (global-set-key (kbd "<f1> l") 'counsel-find-library)
+;; (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+;; (global-set-key (kbd "C-c g") 'counsel-git)
+;; (global-set-key (kbd "C-c j") 'counsel-git-grep)
+;; (global-set-key (kbd "C-c k") 'counsel-ag)
+;; (global-set-key (kbd "C-x l") 'counsel-locate)
+;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
+;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
+;;keymap
+(global-set-key (kbd "M-g") 'goto-line)
+(global-set-key (kbd "C-c f") 'find-name-dired)
+(global-set-key (kbd "C-c i") 'ibuffer)
+(global-set-key (kbd "M-s f f") 'counsel-projectile-find-file)
+(global-set-key (kbd "M-s f d") 'counsel-gtags-find-definition)
+(global-set-key (kbd "M-s f r") 'counsel-gtags-find-reference)
+(global-set-key (kbd "M-s f s") 'counsel-gtags-find-symbol)
 
 ;;powerline
 ;; (add-to-list 'load-path "~/.emacs.d/powerline")

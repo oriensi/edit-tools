@@ -1,0 +1,35 @@
+#env_java8() {
+#export JAVA_HOME=/opt/java/jdk1.8.0_121
+#export PATH=/usr/lib/jvm/java-8-openjdk-amd64/bin:$PATH
+#export ANDROID_JAVA_HOME=/opt/java/jdk1.8.0_121
+#}
+
+export PATH=$PATH:~/Android/Sdk/build-tools/25.0.2/:/opt/emacs/bin
+export LC_CTYPE=zh_CN.UTF-8
+export LANG=en_US.UTF-8
+export PS1='\W\$ '
+# export PROMPT_COMMAND=""
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias xemacs='emacsclient -c -a "" &'
+alias ec='emacsclient -t -a ""'
+# alias for git
+alias gis='git status'
+# alias gil="git branch |grep '^\*' |awk '{print \$NF}' |xargs -I {} git pull origin {}"
+alias gip="git branch |grep '^\*' |awk '{print \$NF}' |xargs -I {} git push origin HEAD:refs/for/{}"
+alias gia="git status |peco |awk '{print \$NF}' |xargs -I {} git add {}"
+# alias gid="git status |percol |awk '{print \$NF}' |xargs -I {} git diff {}"
+
+alias pnf="awk '{print \$NF}' |peco"
+alias chop="sed 's/.$//'"
+
+function lg {
+sed -n "1p;/$1/p" 
+}
+
+# tmux
+alias tml='tmux list-session'
+alias tmd='tmux attach-session -t'
+
+# export USE_CCACHE=1
