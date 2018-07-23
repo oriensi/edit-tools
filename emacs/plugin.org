@@ -16,14 +16,18 @@
 + ghub
 + beacon
   高端然并卵的东西
++ google-c-style
++ auto-complete
 ** github repositories
 在github仓库中 clone 安装(git仓, 无法放到当前仓内)
 + magit ::
   源: [[https://github.com/magit/magit.git]]
   自己: [[https://github.com/oriensi/magit.git][git@github.com:oriensi/magit.git]]
   更方便的使用git
-+ smart-mode-line
-+ powerline (支持evil模式, 不使用melpa中的)
++ smart-mode-line ::
+
++ powerline (支持evil模式, 不使用melpa中的) ::
+
 + projectile ::
   源: [[https://github.com/bbatsov/projectile.git]]
   快速打开/搜索文件，
