@@ -1,0 +1,9 @@
+escape "^Oo"
+vbell off
+bind C layout new
+bind N layout next
+bind P layout prev
+# bind h focus left
+bind j focus down
+bind k focus up
+# bind l focus right
