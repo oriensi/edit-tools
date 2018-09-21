@@ -18,24 +18,15 @@
  ;; '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (rich-minority evil ensime ghub magit-popup with-editor yasnippet whitespace dash)))
+    (highlight-indent-guides counsel-projectile counsel-gtags counsel org beacon rich-minority evil ensime ghub magit-popup yasnippet whitespace)))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(safe-local-variable-values (quote ((bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)"))))
  '(scroll-bar-mode nil)
- '(tool-bar-mode nil)
- ;; '(magit-push-always-verify nil)
- )
-
-;;(custom-set-faces
-;; custom-set-faces was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
-;;'(mode-line ((t (:foreground "black" :background "#bb55ff" :box nil)))))
-;;'(default ((t (:family "Bitstream Charter" :foundry "bitstream" :slant italic :weight normal :height 120 :width normal)))))
+ '(tool-bar-mode nil))
 
 ;;font set for windows
-;; (set-default-font "Monaco-12")
+;; (set-default-font "Envy Code R Italic 13")
+(set-default-font "Fantasque Sans Mono Italic 13")
 ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
 ;;   (set-fontset-font (frame-parameter nil 'font)
 ;;                     charset
@@ -123,7 +114,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-theme 'granger t)
 ;;(load-theme 'graham t)
-(load-theme 'spolsky t)
+;; (load-theme 'spolsky t)
 ;;(load-theme 'mccarthy t)
 ;;(load-theme 'wilson t)
 ;;(load-theme 'brin t)
@@ -133,14 +124,15 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/emacs-color-theme-solarized-master/")
 ;; (load-theme 'solarized-light t)
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'molokai t)
 ;; (load-theme 'wombat t)
-;; (add-to-list 'load-path "~/.emacs.d/color-theme/color-theme-6.6.0/")
-;; (require 'color-theme)
-;; (color-theme-initialize)
-;; (color-theme-charcoal-black)
+(add-to-list 'load-path "~/.emacs.d/color-theme/color-theme-6.6.0/")
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-infodoc)
+;; (color-theme-marquardt)
 
 ;;显示行号
 ;;(global-linum-mode t)
@@ -166,6 +158,8 @@
    nil 0 nil "_NET_WM_STATE" 32
    '(2 "_NET_WM_STATE_FULLSCREEN" 0))
   )
+
+(desktop-save-mode 1)
 
 ;;auto-complete
 (add-to-list 'load-path "~/.emacs.d/auto-complete")
@@ -238,8 +232,8 @@
 ;; (setq Tex-PDF-mode t)
 
 ;; (require 'projectile)
-;; (projectile-global-mode)
-;; (setq projectile-enable-caching t)
+(projectile-global-mode)
+(setq projectile-enable-caching t)
 ;; (global-set-key [f5] 'projectile-find-file)
 (setq projectile-completion-system 'ivy)
 ;; swiper
@@ -290,12 +284,14 @@
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
 
-(custom-set-faces
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'fill)
+
+;; (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
 
  ;; othe face
  ;; '(mode-line ((t (:background "orange red" :foreground "black" :box (:line-width -1 :style released-button)))))
@@ -304,10 +300,9 @@
  ;; '(powerline-active2 ((t (:inherit mode-line :background "dodger blue"))))
  ;; '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "cornflower blue"))))
  ;; '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "medium orchid"))))
-
- '(mode-line ((t (:background "forest green" :foreground "black" :box nil))))
- '(powerline-active1 ((t (:inherit mode-line :background "dark goldenrod"))))
- '(vertical-border ((t (:foreground "green4")))))
+ ;; '(mode-line ((t (:background "forest green" :foreground "black" :box nil))))
+ ;; '(powerline-active1 ((t (:inherit mode-line :background "dark goldenrod"))))
+ ;; '(vertical-border ((t (:foreground "green4")))))
 
 
 ;; GTD

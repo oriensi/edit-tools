@@ -18,6 +18,8 @@
   高端然并卵的东西
 + google-c-style
 + auto-complete
++ highlight-indent-guides
+  显示对齐线 'fill 'column 'character
 ** github repositories
 在github仓库中 clone 安装(git仓, 无法放到当前仓内)
 + magit ::
