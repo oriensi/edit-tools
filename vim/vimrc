@@ -11,14 +11,14 @@ filetype indent on
 
 
 set go="无工具栏"
-autocmd GUIEnter * simalt ~x
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-behave mswin
+" autocmd GUIEnter * simalt ~x
+" source $VIMRUNTIME/vimrc_example.vim
+" source $VIMRUNTIME/mswin.vim
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
+" behave mswin
 
-set langmenu=zh_CN.utf-8
+" set langmenu=zh_CN.utf-8
 language messages zh_CN.utf-8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
