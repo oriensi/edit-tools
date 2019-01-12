@@ -9,6 +9,7 @@ export LC_CTYPE=zh_CN.UTF-8
 export LANG=en_US.UTF-8
 export PS1='\[\e[31;47m\]\W $\[\e[0m\] '      # zsh 显示问题，放到 .bashrc 中
 # export PROMPT_COMMAND=""
+export TERM=xterm-256color
 
 alias ..='cd ..'
 alias ...='cd ../..'
