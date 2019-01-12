@@ -32,6 +32,14 @@ function lg {
 sed -n "1p;/$1/p"
 }
 
+function pa {
+if [[ $# == 1 ]]; then
+    awk -v name=$1 '{print $name}'
+else
+    awk -v name=$1 ${@:2} '{print $name}'
+fi;
+};
+
 # tmux
 alias tml='tmux list-session'
 alias tmd='tmux attach-session -t'
