@@ -15,51 +15,55 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(menu-bar-mode nil)
+ '(menu-bar-mode nil)
  '(package-selected-packages
-   (quote
-    (highlight-indent-guides counsel-projectile counsel-gtags counsel org beacon rich-minority evil ensime ghub magit-popup yasnippet whitespace)))
+   '(org-roam dash transient use-package s-buffer ctable deferred epc posframe auto-complete yasnippet yasnippet-snippets htmlize graphviz-dot-mode highlight-indent-guides counsel-projectile counsel-gtags counsel org rich-minority evil ensime ghub magit-popup whitespace))
  '(rainbow-delimiters-highlight-braces-p nil)
  '(safe-local-variable-values (quote ((bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)"))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 
 ;;font set for windows
-;; (set-default-font "Envy Code R Italic 13")
-(set-default-font "Fantasque Sans Mono Italic 13")
+(cnfonts-enable)
+;; (set-frame-font "-ADBO-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-fontset-startup")
+;; (set-face-attribute 'default nil
+;;                     :family "Fantasque Sans Mono"
+;;                     :height 143
+;;                     :weight 'normal
+;;                     :width 'normal)
 ;; (dolist (charset '(kana han symbol cjk-misc bopomofo))
 ;;   (set-fontset-font (frame-parameter nil 'font)
 ;;                     charset
 ;;                     (font-spec :family "Microsoft Yahei" :size 16)))
 ;;(set-fontset-font "fontset-default" 'han '("Microsoft Yahei"."unicode-bmp"))
 
-;; client font set
-(setq window-system-default-frame-alist
-    '(
-        ;; if frame created on x display
-        (x
-         ;;(menu-bar-lines . nil)
-         (tool-bar-lines . nil)
-         ;; mouse
-         (mouse-wheel-mode . 1)
-         (mouse-wheel-follow-mouse . t)
-         (mouse-avoidance-mode . 'exile)
-         ;; face
-         ;;(font . "文泉驿等宽微米黑 8")
-         ;;(font . "anonymous 10"))
-         ;;(font . "Monaco 10.5"))
-         ;;(font . "monofur 13"))
-         (font . "Source Code Pro 10"))
-         ;;(font . "DejaVu Sans Mono 11"))
-         ;;(font . "Envy Code R Italic 12"))
-        ;; if on term
-        ;;(nil
-        ;;(menu-bar-lines . 0) (tool-bar-lines . 0)
-        ;; (background-color . "black")
-        ;; (foreground-color . "white")
-        ;;)
-     )
-)
+;; ;; client font set
+;; (setq window-system-default-frame-alist
+;;     '(
+;;         ;; if frame created on x display
+;;         (x
+;;          ;;(menu-bar-lines . nil)
+;;          (tool-bar-lines . nil)
+;;          ;; mouse
+;;          (mouse-wheel-mode . 1)
+;;          (mouse-wheel-follow-mouse . t)
+;;          (mouse-avoidance-mode . 'exile)
+;;          ;; face
+;;          ;;(font . "文泉驿等宽微米黑 8")
+;;          ;;(font . "anonymous 10"))
+;;          ;;(font . "Monaco 10.5"))
+;;          ;;(font . "monofur 13"))
+;;          (font . "Source Code Pro 10"))
+;;          ;;(font . "DejaVu Sans Mono 11"))
+;;          ;;(font . "Envy Code R Italic 12"))
+;;         ;; if on term
+;;         ;;(nil
+;;         ;;(menu-bar-lines . 0) (tool-bar-lines . 0)
+;;         ;; (background-color . "black")
+;;         ;; (foreground-color . "white")
+;;         ;;)
+;;      )
+;; )
 
 
 
@@ -118,12 +122,12 @@
 ;;(load-theme 'mccarthy t)
 ;;(load-theme 'wilson t)
 ;;(load-theme 'brin t)
-;;(load-theme 'fogus t)
-;;(load-theme 'junio t)
-;;(load-theme 'hickey t)
+;; (load-theme 'fogus t)
+;; (load-theme 'junio t)
+;; (load-theme 'hickey t)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/emacs-color-theme-solarized-master/")
-;; (load-theme 'solarized-light t)
+;; (load-theme 'solarized-dark t)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/color-theme/")
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'molokai t)
@@ -141,8 +145,8 @@
 (show-paren-mode t)
 
 ;; 美化显示符号
-(prettify-symbols-mode)
-(global-prettify-symbols-mode 1)
+;; (prettify-symbols-mode)
+;; (global-prettify-symbols-mode 1)
 
 ;;是否备份
 (setq make-backup-files nil)
@@ -159,12 +163,12 @@
    '(2 "_NET_WM_STATE_FULLSCREEN" 0))
   )
 
-(desktop-save-mode 1)
+;; (desktop-save-mode 1)
 
 ;;auto-complete
-(add-to-list 'load-path "~/.emacs.d/auto-complete")
+;(add-to-list 'load-path "~/.emacs.d/auto-complete")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elpa/auto-complete-20201213.1255/dict")
 (ac-config-default)
 
 ;;rainbow-delimiters
@@ -189,11 +193,15 @@
 
 ;; org-mode
 (setq org-src-fontify-natively t)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (dot . t)))
 
 ;; cscope
-(require 'xcscope)
-(add-hook 'java-mode-hook (function cscope:hook))
-(setq cscope-do-not-update-database t)
+;; (require 'xcscope)
+;; (add-hook 'java-mode-hook (function cscope:hook))
+;; (setq cscope-do-not-update-database t)
 
 ;;shell mode 正常显示颜色
 ;(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
@@ -258,6 +266,7 @@
 ;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 ;;keymap
+(global-set-key (kbd "<f5>") 'revert-buffer)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "C-c f") 'find-name-dired)
 (global-set-key (kbd "C-c i") 'ibuffer)
@@ -276,9 +285,9 @@
 ;; evil
 (evil-mode 1)
 
-(beacon-mode 1)
+;; (beacon-mode 1)
 ;; smart-mode-line
-(add-to-list 'load-path "~/.emacs.d/smart-mode-line")
+;; (add-to-list 'load-path "~/.emacs.d/smart-mode-line")
 (require 'smart-mode-line)
 (setq sml/theme 'respectful)
 (setq sml/no-confirm-load-theme t)
@@ -308,6 +317,34 @@
 ;; GTD
 (load-file "~/.emacs.d/dto-org-gtd.el")
 
+;; deft
+(setq deft-extension "org")
+(setq deft-directory "~/github/p-notes")
+(setq deft-text-mode 'org-mode)
+(setq deft-incremental-search nil)
+(setq deft-auto-save-interval 0)
+(setq deft-recursive t)
+(defun cm/deft-parse-title (file contents)
+  "Parse the given FILE and CONTENTS and determine the title.
+  If `deft-use-filename-as-title' is nil, the title is taken to
+  be the first non-empty line of the FILE.  Else the base name of the FILE is
+  used as title."
+  (let ((begin (string-match "^#\\+[tT][iI][tT][lL][eE]: .*$" contents)))
+    (if begin
+	(string-trim (substring contents begin (match-end 0)) "#\\+[tT][iI][tT][lL][eE]: *" "[\n\t ]+")
+      (deft-base-filename file))))
+(advice-add 'deft-parse-title :override #'cm/deft-parse-title)
+(setq deft-strip-summary-regexp
+	  (concat "\\("
+		  "[\n\t]" ;; blank
+		  "\\|^#\\+[[:alpha:]_]+:.*\n" ;; org-mode metadata
+		  "\\|^:PROPERTIES:\n\\(.+\n\\)+:END:\n"
+		  "\\)"))
+;; org-roam
+(setq org-roam-v2-ack t)
+(setq org-roam-directory (file-truename "~/github/p-notes"))
+(org-roam-db-autosync-mode)
+
 ;; chines calendar
 (add-to-list 'load-path "~/.emacs.d/site-lisp")
 (require 'cal-china-x)
@@ -321,3 +358,10 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 (defalias 'em 'find-file-other-window)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
